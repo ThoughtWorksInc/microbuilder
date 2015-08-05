@@ -1,3 +1,7 @@
+organization := "com.thoughtworks"
+
+name := "rest-rpc"
+
 //lazy val root = project in file(".")
 
 lazy val `rest-rpc-core` = project
