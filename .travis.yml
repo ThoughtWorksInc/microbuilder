@@ -8,6 +8,13 @@ jdk:
   - openjdk7
   - openjdk6
 
+before_install:
+ - travis_retry sudo add-apt-repository ppa:eyecreate/haxe -y
+ - travis_retry sudo apt-get update -qq
+ - travis_retry sudo apt-get install -qq haxe
+ - travis_retry sudo haxelib setup .haxelib
+ - travis_retry sudo haxelib install hxjava
+
 notifications:
   email: false
   webhooks:
