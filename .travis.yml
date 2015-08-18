@@ -7,3 +7,19 @@ jdk:
   - oraclejdk7
   - openjdk7
   - openjdk6
+
+before_install:
+ - travis_retry sudo add-apt-repository ppa:eyecreate/haxe -y
+ - travis_retry sudo apt-get update -qq
+ - travis_retry sudo apt-get install -qq haxe
+ - travis_retry sudo haxelib setup .haxelib
+ - travis_retry sudo haxelib install hxjava
+
+notifications:
+  email: false
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/0e11823ea12783811cd8
+    on_success: change  # options: [always|never|change] default: always
+    on_failure: always  # options: [always|never|change] default: always
+    on_start: never     # options: [always|never|change] default: always
