@@ -2,9 +2,11 @@ organization := "com.thoughtworks"
 
 name := "rest-rpc"
 
-lazy val `auto-parser` = RootProject(uri("git://github.com/Atry/auto-parser.git"))
+lazy val `auto-parser` = project
 
-lazy val `rest-rpc-core` = project dependsOn `auto-parser`
+lazy val hamu = project
+
+lazy val `rest-rpc-core` = project dependsOn `auto-parser` dependsOn hamu
 
 lazy val `rest-rpc-play` = project dependsOn `rest-rpc-core`
 
