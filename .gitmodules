@@ -19,3 +19,6 @@
 [submodule "json-stream"]
 	path = json-stream
 	url = https://github.com/ThoughtWorksInc/json-stream.git
+[submodule "project/sbt-haxe"]
+	path = project/sbt-haxe
+	url = https://github.com/ThoughtWorksInc/sbt-haxe.git
