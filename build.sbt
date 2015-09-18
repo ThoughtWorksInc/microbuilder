@@ -2,9 +2,9 @@ organization := "com.thoughtworks"
 
 name := "rest-rpc"
 
-lazy val `auto-parser` = project
-
 lazy val hamu = project
+
+lazy val `auto-parser` = project dependsOn hamu
 
 lazy val `json-stream` = project
 
