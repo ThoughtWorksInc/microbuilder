@@ -10,3 +10,15 @@
 [submodule "project/sbt-rest-rpc"]
 	path = project/sbt-rest-rpc
 	url = https://github.com/ThoughtWorksInc/sbt-rest-rpc.git
+[submodule "hamu"]
+	path = hamu
+	url = https://github.com/thoughtworkschina/hamu.git
+[submodule "auto-parser"]
+	path = auto-parser
+	url = https://github.com/Atry/auto-parser.git
+[submodule "json-stream"]
+	path = json-stream
+	url = https://github.com/ThoughtWorksInc/json-stream.git
+[submodule "project/sbt-haxe"]
+	path = project/sbt-haxe
+	url = https://github.com/ThoughtWorksInc/sbt-haxe.git

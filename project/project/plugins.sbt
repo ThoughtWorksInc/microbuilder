@@ -1,8 +1,4 @@
-lazy val plugins = project in file(".") dependsOn `sbt-rest-rpc` dependsOn `sbt-release` dependsOn `sbt-haxe`
-
-lazy val `sbt-rest-rpc` = project
-
-lazy val `sbt-haxe` = project
+lazy val plugins = project in file(".") dependsOn `sbt-release`
 
 addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.0.0")
 
