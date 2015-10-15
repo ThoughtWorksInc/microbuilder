@@ -7,9 +7,9 @@
 [submodule "rest-rpc-sample"]
 	path = rest-rpc-sample
 	url = https://github.com/ThoughtWorksInc/rest-rpc-sample.git
-[submodule "project/sbt-rest-rpc"]
-	path = project/sbt-rest-rpc
-	url = https://github.com/ThoughtWorksInc/sbt-rest-rpc.git
+[submodule "project/sbt-microbuilder"]
+	path = project/sbt-microbuilder
+	url = https://github.com/ThoughtWorksInc/sbt-microbuilder.git
 [submodule "hamu"]
 	path = hamu
 	url = https://github.com/thoughtworkschina/hamu.git
