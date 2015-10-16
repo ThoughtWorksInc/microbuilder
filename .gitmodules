@@ -4,9 +4,6 @@
 [submodule "rest-rpc-play"]
 	path = rest-rpc-play
 	url = https://github.com/ThoughtWorksInc/rest-rpc-play.git
-[submodule "microbuilder-sample"]
-	path = microbuilder-sample
-	url = https://github.com/ThoughtWorksInc/microbuilder-sample.git
 [submodule "project/sbt-microbuilder"]
 	path = project/sbt-microbuilder
 	url = https://github.com/ThoughtWorksInc/sbt-microbuilder.git
@@ -22,3 +19,6 @@
 [submodule "project/sbt-haxe"]
 	path = project/sbt-haxe
 	url = https://github.com/ThoughtWorksInc/sbt-haxe.git
+[submodule "microbuilder-sample"]
+	path = microbuilder-sample
+	url = https://github.com/ThoughtWorksInc/microbuilder-sample.git
