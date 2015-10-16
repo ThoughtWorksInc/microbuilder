@@ -15,7 +15,7 @@ lazy val `rest-rpc-core` = project dependsOn `auto-parser` dependsOn hamu depend
 
 lazy val `rest-rpc-play` = project dependsOn `rest-rpc-core`
 
-lazy val `rest-rpc-sample` = project dependsOn `rest-rpc-play`
+lazy val `microbuilder-sample` = project dependsOn `rest-rpc-play`
 
 
 ghpages.settings
