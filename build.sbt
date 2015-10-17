@@ -11,9 +11,9 @@ lazy val `auto-parser` = project dependsOn hamu
 
 lazy val `json-stream` = project
 
-lazy val `rest-rpc-core` = project dependsOn `auto-parser` dependsOn hamu dependsOn `json-stream`
+lazy val `microbuilder-core` = project dependsOn `auto-parser` dependsOn hamu dependsOn `json-stream`
 
-lazy val `microbuilder-play` = project dependsOn `rest-rpc-core`
+lazy val `microbuilder-play` = project dependsOn `microbuilder-core`
 
 lazy val `microbuilder-sample` = project dependsOn `microbuilder-play`
 
