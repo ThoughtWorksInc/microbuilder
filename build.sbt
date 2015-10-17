@@ -13,9 +13,9 @@ lazy val `json-stream` = project
 
 lazy val `rest-rpc-core` = project dependsOn `auto-parser` dependsOn hamu dependsOn `json-stream`
 
-lazy val `rest-rpc-play` = project dependsOn `rest-rpc-core`
+lazy val `microbuilder-play` = project dependsOn `rest-rpc-core`
 
-lazy val `microbuilder-sample` = project dependsOn `rest-rpc-play`
+lazy val `microbuilder-sample` = project dependsOn `microbuilder-play`
 
 
 ghpages.settings

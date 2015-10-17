@@ -1,9 +1,6 @@
 [submodule "rest-rpc-core"]
 	path = rest-rpc-core
 	url = https://github.com/ThoughtWorksInc/rest-rpc-core.git
-[submodule "rest-rpc-play"]
-	path = rest-rpc-play
-	url = https://github.com/ThoughtWorksInc/rest-rpc-play.git
 [submodule "project/sbt-microbuilder"]
 	path = project/sbt-microbuilder
 	url = https://github.com/ThoughtWorksInc/sbt-microbuilder.git
@@ -22,3 +19,6 @@
 [submodule "microbuilder-sample"]
 	path = microbuilder-sample
 	url = https://github.com/ThoughtWorksInc/microbuilder-sample.git
+[submodule "microbuilder-play"]
+	path = microbuilder-play
+	url = https://github.com/ThoughtWorksInc/microbuilder-play.git
