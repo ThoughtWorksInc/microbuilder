@@ -3,7 +3,7 @@ import GhPagesKeys._
 
 organization := "com.thoughtworks"
 
-name := "rest-rpc"
+name := "microbuilder"
 
 lazy val hamu = project
 
@@ -20,7 +20,7 @@ lazy val `microbuilder-sample` = project dependsOn `microbuilder-play`
 
 ghpages.settings
 
-git.remoteRepo := "git@github.com:ThoughtWorksInc/rest-rpc.git"
+git.remoteRepo := "git@github.com:ThoughtWorksInc/microbuilder.git"
 
 git.gitCurrentBranch := "master"
 
