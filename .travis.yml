@@ -15,7 +15,7 @@ before_install:
  - travis_retry sudo haxelib install hxjava
  - travis_retry sudo haxelib install continuation
  - travis_retry sudo haxelib install hxparse
- - travis_retry sudo haxelib install HUGS
+ - travis_retry sudo haxelib install microbuilder-HUGS
 
 notifications:
   email: false
