@@ -27,3 +27,12 @@ git.gitCurrentBranch := "master"
 LaikaPlugin.defaults
 
 mappings in synchLocal := (mappings in LaikaKeys.site in Laika).value
+
+developers := List(
+  Developer(
+    "Atry",
+    "杨博 (Yang Bo)",
+    "pop.atry@gmail.com",
+    url("https://github.com/Atry")
+  )
+)
