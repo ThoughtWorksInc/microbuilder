@@ -3,10 +3,10 @@
 	url = https://github.com/ThoughtWorksInc/sbt-microbuilder.git
 [submodule "hamu"]
 	path = hamu
-	url = https://github.com/thoughtworkschina/hamu.git
+	url = https://github.com/ThoughtWorksInc/hamu.git
 [submodule "auto-parser"]
 	path = auto-parser
-	url = https://github.com/Atry/auto-parser.git
+	url = https://github.com/ThoughtWorksInc/auto-parser.git
 [submodule "json-stream"]
 	path = json-stream
 	url = https://github.com/ThoughtWorksInc/json-stream.git
