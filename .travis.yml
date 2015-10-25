@@ -1,3 +1,10 @@
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt/boot/
+
 language: scala
 
 scala:
@@ -7,15 +14,33 @@ scala:
 jdk:
   - oraclejdk8
 
+addons:
+  apt:
+    packages:
+    - mono-devel
+    - libgc1c2
+
 before_install:
- - travis_retry sudo add-apt-repository ppa:eyecreate/haxe -y
- - travis_retry sudo apt-get update -qq
- - travis_retry sudo apt-get install -qq haxe
- - travis_retry sudo haxelib setup .haxelib
- - travis_retry sudo haxelib install hxjava
- - travis_retry sudo haxelib install continuation
- - travis_retry sudo haxelib install hxparse
- - travis_retry sudo haxelib install microbuilder-HUGS
+  - travis_retry wget http://nekovm.org/media/neko-2.0.0-linux64.tar.gz
+  - tar zxvf neko-2.0.0-linux64.tar.gz
+  - travis_retry wget http://hxbuilds.s3-website-us-east-1.amazonaws.com/builds/haxe/linux64/"$HAXE_FILE"
+  - tar zxvf "$HAXE_FILE"
+  - mv haxe-*/ haxe/
+  - export PATH=$PATH:$PWD/haxe:$PWD/neko-2.0.0-linux
+  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/neko-2.0.0-linux
+  - export HAXE_STD_PATH=$PWD/haxe/std
+  - haxelib setup .haxelib-local
+  - travis_retry haxelib install hxjava --always
+  - travis_retry haxelib install hxparse
+  - travis_retry haxelib install continuation
+  - travis_retry haxelib install microbuilder-HUGS
+
+script:
+  - sbt ";++$TRAVIS_SCALA_VERSION;haxelibInstallDependencies;$SBT_COMMAND"
+  - sbt laika:site && sbt ghpages-push-site
+
+  - find $HOME/.sbt -name "*.lock" | xargs rm
+  - find $HOME/.ivy2 -name "ivydata-*.properties" | xargs rm
 
 notifications:
   email: false
@@ -26,6 +51,10 @@ notifications:
     on_failure: always  # options: [always|never|change] default: always
     on_start: never     # options: [always|never|change] default: always
 
-script:
-  - sbt test
-  - sbt laika:site && sbt ghpages-push-site
+env:
+  matrix:
+    # Haxe 3.2.0
+    - SBT_COMMAND=test;test:run HAXE_FILE=haxe_2015-05-12_master_77d171b.tar.gz
+
+    # Haxe 3.2.1
+    - SBT_COMMAND=test;test:run HAXE_FILE=haxe_2015-10-12_master_deab442.tar.gz
