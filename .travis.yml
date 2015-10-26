@@ -31,9 +31,6 @@ before_install:
   - export HAXE_STD_PATH=$PWD/haxe/std
   - haxelib setup .haxelib-local
   - travis_retry haxelib install hxjava --always
-  - travis_retry haxelib install hxparse
-  - travis_retry haxelib install continuation
-  - travis_retry haxelib install microbuilder-HUGS
 
 script:
   - sbt ";++$TRAVIS_SCALA_VERSION;haxelibInstallDependencies;$SBT_COMMAND"
@@ -54,7 +51,7 @@ notifications:
 env:
   matrix:
     # Haxe 3.2.0
-    - SBT_COMMAND=test;test:run HAXE_FILE=haxe_2015-05-12_master_77d171b.tar.gz
+    - SBT_COMMAND=test HAXE_FILE=haxe_2015-05-12_master_77d171b.tar.gz
 
     # Haxe 3.2.1
-    - SBT_COMMAND=test;test:run HAXE_FILE=haxe_2015-10-12_master_deab442.tar.gz
+    - SBT_COMMAND=test HAXE_FILE=haxe_2015-10-12_master_deab442.tar.gz
