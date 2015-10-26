@@ -37,7 +37,6 @@ before_install:
 
 script:
   - sbt ";++$TRAVIS_SCALA_VERSION;haxelibInstallDependencies;$SBT_COMMAND"
-  - sbt laika:site && sbt ghpages-push-site
 
   - find $HOME/.sbt -name "*.lock" | xargs rm
   - find $HOME/.ivy2 -name "ivydata-*.properties" | xargs rm
