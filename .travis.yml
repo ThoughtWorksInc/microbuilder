@@ -55,7 +55,7 @@ notifications:
 env:
   matrix:
     # Haxe 3.2.0
-    - SBT_COMMAND=test HAXE_FILE=haxe_2015-05-12_master_77d171b.tar.gz
+    - SBT_COMMAND=test; HAXE_FILE=haxe_2015-05-12_master_77d171b.tar.gz
 
     # Haxe 3.2.1
-    - SBT_COMMAND=test HAXE_FILE=haxe_2015-10-12_master_deab442.tar.gz
+    - SBT_COMMAND=test; HAXE_FILE=haxe_2015-10-12_master_deab442.tar.gz
