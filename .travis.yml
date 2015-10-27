@@ -34,7 +34,6 @@ before_install:
 
 script:
   - sbt ";++$TRAVIS_SCALA_VERSION;haxelibInstallDependencies;$SBT_COMMAND"
-  - sbt laika:site && sbt ghpages-push-site
 
   - find $HOME/.sbt -name "*.lock" | xargs rm
   - find $HOME/.ivy2 -name "ivydata-*.properties" | xargs rm
@@ -51,7 +50,7 @@ notifications:
 env:
   matrix:
     # Haxe 3.2.0
-    - SBT_COMMAND=test HAXE_FILE=haxe_2015-05-12_master_77d171b.tar.gz
+    - SBT_COMMAND=test; HAXE_FILE=haxe_2015-05-12_master_77d171b.tar.gz
 
     # Haxe 3.2.1
-    - SBT_COMMAND=test HAXE_FILE=haxe_2015-10-12_master_deab442.tar.gz
+    - SBT_COMMAND=test; HAXE_FILE=haxe_2015-10-12_master_deab442.tar.gz
