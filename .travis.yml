@@ -42,8 +42,9 @@ install:
 script:
   - sbt ";++$TRAVIS_SCALA_VERSION;$SBT_COMMAND"
 
-  - find $HOME/.sbt -name "*.lock" | xargs rm
-  - find $HOME/.ivy2 -name "ivydata-*.properties" | xargs rm
+before_cache:
+  - find $HOME/.sbt -name '*.lock' | xargs rm
+  - find $HOME/.ivy2 -name 'ivydata-*.properties' | xargs rm
 
 notifications:
   email: false
