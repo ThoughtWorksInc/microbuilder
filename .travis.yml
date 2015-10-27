@@ -36,8 +36,11 @@ before_install:
   - travis_retry haxelib install continuation
   - travis_retry haxelib install microbuilder-HUGS
 
+install:
+  - sbt ";++$TRAVIS_SCALA_VERSION;haxelibInstallDependencies;update"
+
 script:
-  - sbt ";++$TRAVIS_SCALA_VERSION;haxelibInstallDependencies;$SBT_COMMAND"
+  - sbt ";++$TRAVIS_SCALA_VERSION;$SBT_COMMAND"
 
   - find $HOME/.sbt -name "*.lock" | xargs rm
   - find $HOME/.ivy2 -name "ivydata-*.properties" | xargs rm
