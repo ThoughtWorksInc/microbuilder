@@ -30,7 +30,7 @@ before_install:
   - export PATH=$PATH:$PWD/haxe:$PWD/neko-2.0.0-linux
   - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/neko-2.0.0-linux
   - export HAXE_STD_PATH=$PWD/haxe/std
-  - haxelib setup .haxelib-local
+  - haxelib setup $HOME/.haxelib-local
   - travis_retry haxelib install hxjava --always
   - travis_retry haxelib install hxparse
   - travis_retry haxelib install continuation
