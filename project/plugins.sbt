@@ -1,6 +1,6 @@
 lazy val plugins = project in file(".") dependsOn `sbt-microbuilder` dependsOn `sbt-release` dependsOn `sbt-haxe`
 
-lazy val `sbt-microbuilder` = project
+lazy val `sbt-microbuilder` = project dependsOn `sbt-haxe`
 
 lazy val `sbt-haxe` = project
 
