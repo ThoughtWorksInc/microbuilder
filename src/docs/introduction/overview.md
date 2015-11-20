@@ -1,33 +1,26 @@
 Overview
 ====================
 
-Microbuilder is a framework to build microservice. It just need three steps to finish a service:
-
-* Define Models and Interfaces
-* Involve Microbuilder
-* Compile and Invoke in Your Code
-
-Step1: Define Models and Interfaces
+How to write help document
 ---------------------
 
-* 1. src/haxe/model: define your model interact with callee
-* 2. src/haxe/rpc: define a local method and relate it to the route
+It is normal markdown document. So write it based on markdown rules
 
-Step2: Involve Microbuilder
+How to order your document
 ---------------------
-* 1. add sbt plugin to plugins.sbt
 
-```addSbtPlugin("com.thoughtworks" % "sbt-microbuilder" % "+")```
+###new folder
 
-* 2. enable sbt plugin in build.sbt
+* add new folder name to directory.conf in root
 
-```enablePlugins(Microbuilder)```
+* add a new directory.conf to your new folder, then you can order your documents by yourself. Please refer to 'introduction' folder.
 
+* That's all
 
-Step3: Compile and Invoke in Your Code
----------------------
-* compile yor model and interface
+###new document
 
-```sbt compile```
+If you just want to add a new document in exist folder, follow these steps:
 
-* write your logic code based on interface
+* add your new document
+
+* add document name to directory.conf in that folder
