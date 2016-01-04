@@ -26,7 +26,7 @@ Step2: Involve Microbuilder
 
 Step3: Compile and Invoke in Your Code
 ---------------------
-* compile yor model and interface
+* compile your model and interface
 
 ```sbt compile```
 
