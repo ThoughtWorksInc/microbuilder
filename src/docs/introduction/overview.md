@@ -21,7 +21,7 @@ Step2: Involve Microbuilder
 
 * 2. enable sbt plugin in build.sbt
 
-```enablePlugins(Microbuilder)```
+```enablePlugins(MicrobuilderPlay)```
 
 
 Step3: Compile and Invoke in Your Code
