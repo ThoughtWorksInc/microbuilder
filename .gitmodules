@@ -8,7 +8,7 @@
 	path = auto-parser
 	url = https://github.com/ThoughtWorksInc/auto-parser.git
 [submodule "json-stream"]
-	path = json-stream
+	path = json-stream-core
 	url = https://github.com/ThoughtWorksInc/json-stream.git
 [submodule "project/sbt-haxe"]
 	path = project/sbt-haxe
@@ -22,3 +22,6 @@
 [submodule "microbuilder-core"]
 	path = microbuilder-core
 	url = https://github.com/ThoughtWorksInc/microbuilder-core.git
+[submodule "microbuilder-js"]
+	path = microbuilder-js
+	url = git@github.com:ThoughtWorksInc/microbuilder-js.git
