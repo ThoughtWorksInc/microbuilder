@@ -24,4 +24,4 @@
 	url = https://github.com/ThoughtWorksInc/microbuilder-core.git
 [submodule "microbuilder-js"]
 	path = microbuilder-js
-	url = git@github.com:ThoughtWorksInc/microbuilder-js.git
+	url = https://github.com/ThoughtWorksInc/microbuilder-js.git
