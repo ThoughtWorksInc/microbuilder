@@ -7,9 +7,9 @@
 [submodule "auto-parser"]
 	path = auto-parser
 	url = https://github.com/ThoughtWorksInc/auto-parser.git
-[submodule "json-stream"]
+[submodule "json-stream-core"]
 	path = json-stream-core
-	url = https://github.com/ThoughtWorksInc/json-stream.git
+	url = https://github.com/ThoughtWorksInc/json-stream-core.git
 [submodule "project/sbt-haxe"]
 	path = project/sbt-haxe
 	url = https://github.com/ThoughtWorksInc/sbt-haxe.git
