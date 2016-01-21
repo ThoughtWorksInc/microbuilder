@@ -8,7 +8,7 @@ resolvers += "jgit-repo" at "http://download.eclipse.org/jgit/maven"
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.5.2")
 
-addSbtPlugin("org.planet42" % "laika-sbt" % "0.5.0")
+addSbtPlugin("org.planet42" % "laika-sbt" % "0.5.1")
 
 addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.0.0")
 
