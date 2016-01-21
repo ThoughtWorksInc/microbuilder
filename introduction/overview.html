@@ -6278,18 +6278,17 @@
             <p>MIDL is based on Haxe.
             You can define data structures and endpoints in Haxe&#39;s object-oriented syntax,
             with a little MIDL-specific annotations like <code>@:route</code>.</p>
-            <p>```
-            @:final class UserProfile {
-              public function new() {}
-              public var name:String;
-              public var email:String;
-              public var address:String;
-            }</p>
-            <p>interface IUserService {
-              @:route(&quot;GET&quot;, &quot;users/{id}&quot;)
-              function getUser(id:String):UserProfile;
-            }
-            ```</p>
+            <pre><code>@:final class UserProfile {
+  public function new() {}
+  public var name:String;
+  public var email:String;
+  public var address:String;
+}
+
+interface IUserService {
+  @:route(&quot;GET&quot;, &quot;users/{id}&quot;)
+  function getUser(id:String):UserProfile;
+}</code></pre>
             <p>Developers could perform following tasks around MIDL when building microservices:</p>
             <ol class="arabic">
               <li>service developers use MIDL to define their specific domain API.</li>
