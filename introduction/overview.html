@@ -6225,9 +6225,8 @@
                         <li>
                           <p class="toc level2 active">Overview</p>
                           <ul>
-                            <li><a class="toc level3" href="#step1-define-models-and-interfaces">Step1: Define Models and Interfaces</a></li>
-                            <li><a class="toc level3" href="#step2-involve-microbuilder">Step2: Involve Microbuilder</a></li>
-                            <li><a class="toc level3" href="#step3-compile-and-invoke-in-your-code">Step3: Compile and Invoke in Your Code</a></li>
+                            <li><a class="toc level3" href="#motive">Motive</a></li>
+                            <li><a class="toc level3" href="#how-microbuilder-works">How Microbuilder works</a></li>
                           </ul>
                         </li>
                       </ul>
@@ -6254,53 +6253,65 @@
 
             
             <h1 id="overview" class="title">Overview</h1>
-            <p>Microbuilder is a framework to build microservice. It just need three steps to finish a service:</p>
-            <ul>
-              <li>Define Models and Interfaces</li>
-              <li>Involve Microbuilder</li>
-              <li>Compile and Invoke in Your Code</li>
-            </ul>
+            <p><strong>Microbuilder</strong> is a toolkit that helps you build system across micro-services
+            implemented in various languages communicating via RESTful JSON API.</p>
             
-            <h2 id="step1-define-models-and-interfaces" class="section">Step1: Define Models and Interfaces</h2>
-            <ul>
-              <li>
-                <ol class="arabic">
-                  <li>src/haxe/model: define your model interact with callee</li>
-                </ol>
-              </li>
-              <li>
-                <ol class="arabic">
-                  <li>src/haxe/rpc: define a local method and relate it to the route</li>
-                </ol>
-              </li>
-            </ul>
+            <h2 id="motive" class="section">Motive</h2>
+            <p>We, some guys in <a href="http://thoughtworks.com/">ThoughtWorks</a>, are working for a client
+            helping them maintain a large legacy system.</p>
+            <p>The legacy system were one single J2EE application that contains hundreds of thousands of lines of source code.
+            The application was tightly coupled and very hard to add new feature.</p>
+            <p>In the past couple of years,
+            we turned the system into <a href="http://martinfowler.com/articles/microservices.html">Microservice Architecture</a>.
+            We experienced a huge improvement in productivity and maintainability during the process.
+            Nowaday, there are hundreds of microservices in the system,
+            and we are continuously creating new microservices for new business domains.</p>
+            <p>These microservices are written in different programming languages
+            like Scala, Ruby, Java, or JavaScript,
+            and usually are maintained by different teams spread on different countries.</p>
+            <p>As a result, the communication between people became one of the most serious topic in our system,
+            and Microbuilder is designed for communication.</p>
             
-            <h2 id="step2-involve-microbuilder" class="section">Step2: Involve Microbuilder</h2>
-            <ul>
-              <li>
-                <ol class="arabic">
-                  <li>add sbt plugin to plugins.sbt</li>
-                </ol>
-              </li>
-            </ul>
-            <p><code>`addSbtPlugin(&quot;com.thoughtworks&quot; % &quot;sbt-microbuilder&quot; % &quot;+&quot;)</code>`</p>
-            <ul>
-              <li>
-                <ol class="arabic">
-                  <li>enable sbt plugin in build.sbt</li>
-                </ol>
-              </li>
-            </ul>
-            <p><code>`enablePlugins(Microbuilder)</code>`</p>
-            
-            <h2 id="step3-compile-and-invoke-in-your-code" class="section">Step3: Compile and Invoke in Your Code</h2>
-            <ul>
-              <li>compile yor model and interface</li>
-            </ul>
-            <p><code>`sbt compile</code>`</p>
-            <ul>
-              <li>write your logic code based on interface</li>
-            </ul>
+            <h2 id="how-microbuilder-works" class="section">How Microbuilder works</h2>
+            <p>We designed a language to define RESTful JSON API,
+            named MIDL (Microbuilder Interface Definition Language).</p>
+            <p>MIDL is based on Haxe.
+            You can define data structures and endpoints in Haxe&#39;s object-oriented syntax,
+            with a little MIDL-specific annotations like <code>@:route</code>.</p>
+            <p>```
+            @:final class UserProfile {
+              public function new() {}
+              public var name:String;
+              public var email:String;
+              public var address:String;
+            }</p>
+            <p>interface IUserService {
+              @:route(&quot;GET&quot;, &quot;users/{id}&quot;)
+              function getUser(id:String):UserProfile;
+            }
+            ```</p>
+            <p>Developers could perform following tasks around MIDL when building microservices:</p>
+            <ol class="arabic">
+              <li>service developers use MIDL to define their specific domain API.</li>
+            </ol>
+            <ol class="arabic">
+              <li>service developers generate API Documentation from MIDL.</li>
+            </ol>
+            <ol class="arabic">
+              <li>service developers generate server-side stubs from MIDL for target languages (including Scala, JavaScript, Java, C#, PHP, C++, ActionScript 3, NekoVM, and Python), then implement the RESTful service with the help of the stubs.</li>
+            </ol>
+            <ol class="arabic">
+              <li>service developers generate client-side SDK from MIDL for target languages, and publish the SDK.</li>
+            </ol>
+            <ol class="arabic">
+              <li>service users use the client-side SDK in an application, in order to call the service in a RPC flavor.</li>
+            </ol>
+            <p>Note that every task listed above is optional.
+            For example, you may want to create MIDL to fit the current API of a legacy service,
+            and generate client-side SDK and documentation for it,
+            so that other applications will be easy to communicate with the legacy service.
+            However, you will not generate server-side stubs
+            because you already have a service implementation before.</p>
 
         </div>
     </div>
