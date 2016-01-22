@@ -6233,7 +6233,6 @@
                         <li>
                           <p><a class="toc level2" href="2-interface-definition.html">Interface definition</a></p>
                           <ul>
-                            <li><a class="toc level3" href="2-interface-definition.html#a-full-example-of-an-api-definition">A full example of an API definition</a></li>
                             <li><a class="toc level3" href="2-interface-definition.html#package-and-directory-layout">Package and directory layout</a></li>
                             <li><a class="toc level3" href="2-interface-definition.html#interfaces-and-methods">Interfaces and methods</a></li>
                           </ul>
@@ -6283,10 +6282,9 @@
             <p>MIDL is based on <a href="http://haxe.org/">Haxe</a>,
             with some MIDL-specific additional annotations.
             So a MIDL source file is also a Haxe source file,
-            though we only use the a subset of Haxe features to describe RESTful JSON API.</p>
+            though we only need a subset of Haxe features to describe RESTful JSON API.</p>
             <p>Haxe is an object-oriented language.
-            MIDL reuses Haxe&#39;s interface, method and class definition syntax
-            to describe RESTful JSON API.</p>
+            MIDL reuses Haxe&#39;s interface, method and class definition syntax.</p>
             <p>In order to define a RESTful JSON API,
             you can create a Haxe interface,
             in which there are method declarations.
@@ -6317,11 +6315,11 @@
             <ul>
               <li>When a client sends a GET request to the service at <code>/users/user-id</code>,
               the server returns a JSON response of the user profile data for <code>user-id</code>
-              like <code>{ &quot;name&quot;: &quot;User Name&quot;, &quot;email&quot;: &quot;user@host.com&quot;, &quot;age&quot;: 30 }</code>.</li>
+              like <code>{ &quot;name&quot;: &quot;User Name&quot;, &quot;email&quot;: &quot;user@host.com&quot;, &quot;age&quot;: 18 }</code>.</li>
             </ul>
             <ul>
               <li>When a client sends a PUT request to the service at <code>/users/user-id</code> with a JSON content
-              like <code>{ &quot;name&quot;: &quot;User Name&quot;, &quot;email&quot;: &quot;user@host.com&quot;, &quot;age&quot;: 30 }</code>,
+              like <code>{ &quot;name&quot;: &quot;User Name&quot;, &quot;email&quot;: &quot;user@host.com&quot;, &quot;age&quot;: 18 }</code>,
               the server returns no data but HTTP status.</li>
             </ul>
 

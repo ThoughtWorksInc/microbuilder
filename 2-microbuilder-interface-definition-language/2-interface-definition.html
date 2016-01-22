@@ -6233,7 +6233,6 @@
                         <li>
                           <p class="toc level2 active">Interface definition</p>
                           <ul>
-                            <li><a class="toc level3" href="#a-full-example-of-an-api-definition">A full example of an API definition</a></li>
                             <li><a class="toc level3" href="#package-and-directory-layout">Package and directory layout</a></li>
                             <li><a class="toc level3" href="#interfaces-and-methods">Interfaces and methods</a></li>
                           </ul>
@@ -6279,15 +6278,14 @@
             
             <h1 id="interface-definition" class="title">Interface definition</h1>
             <p>An <code>interace</code> in MIDL describes a set of endpoints.</p>
-            
-            <h2 id="a-full-example-of-an-api-definition" class="section">A full example of an API definition</h2>
+            <p>For example, this is an MIDL file that defines two endpoints:</p>
             <pre><code>// This file is at src/haxe/userSdk/rpc/Rpc.hx
 package userSdk.rpc;
 
 // Import Future, which holds asynchronous operations.
 import jsonStream.rpc.Future;
 
-// Import Profile, which is defined in src/haxe/userSdk/model/Models.hx
+// Import Profile, which should be defined in src/haxe/userSdk/model/Models.hx
 import userSdk.model.Models.Profile;
 
 @:structuralFailure(userSdk.model.Models.Failure)
