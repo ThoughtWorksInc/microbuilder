@@ -2,7 +2,7 @@
 
 An `interace` in MIDL describes a set of endpoints.
 
-## A full example of an API definition
+For example, this is an MIDL file that defines two endpoints:
 
     // This file is at src/haxe/userSdk/rpc/Rpc.hx
     package userSdk.rpc;
@@ -10,7 +10,7 @@ An `interace` in MIDL describes a set of endpoints.
     // Import Future, which holds asynchronous operations.
     import jsonStream.rpc.Future;
 
-    // Import Profile, which is defined in src/haxe/userSdk/model/Models.hx
+    // Import Profile, which should be defined in src/haxe/userSdk/model/Models.hx
     import userSdk.model.Models.Profile;
 
     @:structuralFailure(userSdk.model.Models.Failure)
