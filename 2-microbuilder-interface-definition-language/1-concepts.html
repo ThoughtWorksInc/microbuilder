@@ -6220,27 +6220,53 @@
                 <div class="toc">
                   <ul>
                     <li>
-                      <p class="toc level1"><span class="titleNumber">1 </span>Introduction</p>
+                      <p class="toc level1">Introduction</p>
                       <ul>
+                        <li><a class="toc level2" href="../1-introduction/1-overview.html">Overview</a></li>
+                        <li><a class="toc level2" href="../1-introduction/2-motive.html">Motive</a></li>
+                        <li><a class="toc level2" href="../1-introduction/3-how-microbuilder-works.html">How Microbuilder works</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <p class="toc level1">Microbuilder Interface Definition Language</p>
+                      <ul>
+                        <li><span class="toc level2 active">Concepts</span></li>
                         <li>
-                          <p><a class="toc level2" href="../introduction/overview.html">Overview</a></p>
+                          <p><a class="toc level2" href="2-interface-definition.html">Interface definition</a></p>
                           <ul>
-                            <li><a class="toc level3" href="../introduction/overview.html#motive">Motive</a></li>
-                            <li><a class="toc level3" href="../introduction/overview.html#how-microbuilder-works">How Microbuilder works</a></li>
+                            <li><a class="toc level3" href="2-interface-definition.html#a-full-example-of-an-api-definition">A full example of an API definition</a></li>
+                            <li><a class="toc level3" href="2-interface-definition.html#package-and-directory-layout">Package and directory layout</a></li>
+                            <li><a class="toc level3" href="2-interface-definition.html#interfaces-and-methods">Interfaces and methods</a></li>
                           </ul>
                         </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <p class="toc level1"><span class="titleNumber">2 </span>Caller</p>
-                      <ul>
-                        <li><a class="toc level2" href="../caller/caller.html">Caller</a></li>
-                      </ul>
-                    </li>
-                    <li>
-                      <p class="toc level1"><span class="titleNumber">3 </span>Callee</p>
-                      <ul>
-                        <li><span class="toc level2 active">Callee</span></li>
+                        <li>
+                          <p><a class="toc level2" href="3-json-schema.html">JSON schema</a></p>
+                          <ul>
+                            <li><a class="toc level3" href="3-json-schema.html#request-content-json-schema">Request content JSON schema</a></li>
+                            <li><a class="toc level3" href="3-json-schema.html#response-content-json-schema">Response content JSON schema</a></li>
+                            <li>
+                              <p><a class="toc level3" href="3-json-schema.html#built-in-types-for-json-schema">Built-in types for JSON schema</a></p>
+                              <ul>
+                                <li><a class="toc level4" href="3-json-schema.html#primary-types">Primary types</a></li>
+                                <li><a class="toc level4" href="3-json-schema.html#array-types">Array types</a></li>
+                              </ul>
+                            </li>
+                            <li><a class="toc level3" href="3-json-schema.html#custom-class-types">Custom class types</a></li>
+                          </ul>
+                        </li>
+                        <li>
+                          <p><a class="toc level2" href="4-annotations.html">Annotations</a></p>
+                          <ul>
+                            <li><a class="toc level3" href="4-annotations.html#id-1"><code>@:structuralFailure</code></a></li>
+                            <li><a class="toc level3" href="4-annotations.html#1"><code>@:nativeGen</code></a></li>
+                            <li><a class="toc level3" href="4-annotations.html#2"><code>@:route</code></a></li>
+                            <li><a class="toc level3" href="4-annotations.html#3"><code>@:requestContentType</code></a></li>
+                            <li><a class="toc level3" href="4-annotations.html#4"><code>@:responseContentType</code></a></li>
+                            <li><a class="toc level3" href="4-annotations.html#5"><code>@:requestHeader</code></a></li>
+                            <li><a class="toc level3" href="4-annotations.html#6"><code>@:final</code></a></li>
+                            <li><a class="toc level3" href="4-annotations.html#7"><code>@:transient</code></a></li>
+                          </ul>
+                        </li>
                       </ul>
                     </li>
                   </ul>
@@ -6252,7 +6278,53 @@
         <div class="span8" id="top">
 
             
-            <h1 id="callee" class="title">Callee</h1>
+            <h1 id="concepts" class="title">Concepts</h1>
+            <p><strong>MIDL</strong> (<strong>M</strong>icrobuilder <strong>I</strong>nterface <strong>D</strong>efinition <strong>L</strong>anguage)
+            is the language that describes RESTful JSON API crossing services.</p>
+            <p>MIDL is based on <a href="http://haxe.org/">Haxe</a>,
+            with some MIDL-specific additional annotations.
+            So a MIDL source file is also a Haxe source file,
+            though we only use the a subset of Haxe features to describe RESTful JSON API.</p>
+            <p>Haxe is an object-oriented language.
+            MIDL reuses Haxe&#39;s interface, method and class definition syntax
+            to describe RESTful JSON API.</p>
+            <p>In order to define a RESTful JSON API,
+            you can create a Haxe interface,
+            in which there are method declarations.
+            Every method corresponds to a specific endpoint.</p>
+            <pre><code>interface IUserProfileService {
+
+  @:route(&quot;GET&quot;, &quot;users/{userId}&quot;)
+  function getProfile(userId:String):Future&lt;Profile&gt;;
+
+  @:route(&quot;PUT&quot;, &quot;users/{userId}&quot;)
+  @:requestContentType(&quot;text/json&quot;)
+  function setProfile(userId:String, profile:Profile):Future&lt;Void&gt;;
+
+}</code></pre>
+            <p>Then, you need to define <code>Profile</code> referenced above,
+            which corresponds to a JSON data structure.</p>
+            <pre><code>@:final class UserProfile {
+  public function new() {}
+
+  public var name:String;
+
+  public var email:String;
+
+  public var age:Int;
+
+}</code></pre>
+            <p>As a result, the above MIDL describes a RESTful JSON service that has the following behaviors:</p>
+            <ul>
+              <li>When a client sends a GET request to the service at <code>/users/user-id</code>,
+              the server returns a JSON response of the user profile data for <code>user-id</code>
+              like <code>{ &quot;name&quot;: &quot;User Name&quot;, &quot;email&quot;: &quot;user@host.com&quot;, &quot;age&quot;: 30 }</code>.</li>
+            </ul>
+            <ul>
+              <li>When a client sends a PUT request to the service at <code>/users/user-id</code> with a JSON content
+              like <code>{ &quot;name&quot;: &quot;User Name&quot;, &quot;email&quot;: &quot;user@host.com&quot;, &quot;age&quot;: 30 }</code>,
+              the server returns no data but HTTP status.</li>
+            </ul>
 
         </div>
     </div>

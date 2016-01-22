@@ -6220,27 +6220,53 @@
                 <div class="toc">
                   <ul>
                     <li>
-                      <p class="toc level1"><span class="titleNumber">1 </span>Introduction</p>
+                      <p class="toc level1">Introduction</p>
                       <ul>
+                        <li><a class="toc level2" href="1-overview.html">Overview</a></li>
+                        <li><a class="toc level2" href="2-motive.html">Motive</a></li>
+                        <li><span class="toc level2 active">How Microbuilder works</span></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <p class="toc level1">Microbuilder Interface Definition Language</p>
+                      <ul>
+                        <li><a class="toc level2" href="../2-microbuilder-interface-definition-language/1-concepts.html">Concepts</a></li>
                         <li>
-                          <p class="toc level2 active">Overview</p>
+                          <p><a class="toc level2" href="../2-microbuilder-interface-definition-language/2-interface-definition.html">Interface definition</a></p>
                           <ul>
-                            <li><a class="toc level3" href="#motive">Motive</a></li>
-                            <li><a class="toc level3" href="#how-microbuilder-works">How Microbuilder works</a></li>
+                            <li><a class="toc level3" href="../2-microbuilder-interface-definition-language/2-interface-definition.html#a-full-example-of-an-api-definition">A full example of an API definition</a></li>
+                            <li><a class="toc level3" href="../2-microbuilder-interface-definition-language/2-interface-definition.html#package-and-directory-layout">Package and directory layout</a></li>
+                            <li><a class="toc level3" href="../2-microbuilder-interface-definition-language/2-interface-definition.html#interfaces-and-methods">Interfaces and methods</a></li>
                           </ul>
                         </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <p class="toc level1"><span class="titleNumber">2 </span>Caller</p>
-                      <ul>
-                        <li><a class="toc level2" href="../caller/caller.html">Caller</a></li>
-                      </ul>
-                    </li>
-                    <li>
-                      <p class="toc level1"><span class="titleNumber">3 </span>Callee</p>
-                      <ul>
-                        <li><a class="toc level2" href="../callee/callee.html">Callee</a></li>
+                        <li>
+                          <p><a class="toc level2" href="../2-microbuilder-interface-definition-language/3-json-schema.html">JSON schema</a></p>
+                          <ul>
+                            <li><a class="toc level3" href="../2-microbuilder-interface-definition-language/3-json-schema.html#request-content-json-schema">Request content JSON schema</a></li>
+                            <li><a class="toc level3" href="../2-microbuilder-interface-definition-language/3-json-schema.html#response-content-json-schema">Response content JSON schema</a></li>
+                            <li>
+                              <p><a class="toc level3" href="../2-microbuilder-interface-definition-language/3-json-schema.html#built-in-types-for-json-schema">Built-in types for JSON schema</a></p>
+                              <ul>
+                                <li><a class="toc level4" href="../2-microbuilder-interface-definition-language/3-json-schema.html#primary-types">Primary types</a></li>
+                                <li><a class="toc level4" href="../2-microbuilder-interface-definition-language/3-json-schema.html#array-types">Array types</a></li>
+                              </ul>
+                            </li>
+                            <li><a class="toc level3" href="../2-microbuilder-interface-definition-language/3-json-schema.html#custom-class-types">Custom class types</a></li>
+                          </ul>
+                        </li>
+                        <li>
+                          <p><a class="toc level2" href="../2-microbuilder-interface-definition-language/4-annotations.html">Annotations</a></p>
+                          <ul>
+                            <li><a class="toc level3" href="../2-microbuilder-interface-definition-language/4-annotations.html#id-1"><code>@:structuralFailure</code></a></li>
+                            <li><a class="toc level3" href="../2-microbuilder-interface-definition-language/4-annotations.html#1"><code>@:nativeGen</code></a></li>
+                            <li><a class="toc level3" href="../2-microbuilder-interface-definition-language/4-annotations.html#2"><code>@:route</code></a></li>
+                            <li><a class="toc level3" href="../2-microbuilder-interface-definition-language/4-annotations.html#3"><code>@:requestContentType</code></a></li>
+                            <li><a class="toc level3" href="../2-microbuilder-interface-definition-language/4-annotations.html#4"><code>@:responseContentType</code></a></li>
+                            <li><a class="toc level3" href="../2-microbuilder-interface-definition-language/4-annotations.html#5"><code>@:requestHeader</code></a></li>
+                            <li><a class="toc level3" href="../2-microbuilder-interface-definition-language/4-annotations.html#6"><code>@:final</code></a></li>
+                            <li><a class="toc level3" href="../2-microbuilder-interface-definition-language/4-annotations.html#7"><code>@:transient</code></a></li>
+                          </ul>
+                        </li>
                       </ul>
                     </li>
                   </ul>
@@ -6252,32 +6278,11 @@
         <div class="span8" id="top">
 
             
-            <h1 id="overview" class="title">Overview</h1>
-            <p><strong>Microbuilder</strong> is a toolkit that helps you build system across micro-services
-            implemented in various languages communicating via RESTful JSON API.</p>
-            
-            <h2 id="motive" class="section">Motive</h2>
-            <p>We, some guys in <a href="http://thoughtworks.com/">ThoughtWorks</a>, are working for a client
-            helping them maintain a large legacy system.</p>
-            <p>The legacy system were one single J2EE application that contains hundreds of thousands of lines of source code.
-            The application was tightly coupled and very hard to add new feature.</p>
-            <p>In the past couple of years,
-            we turned the system into <a href="http://martinfowler.com/articles/microservices.html">Microservice Architecture</a>.
-            We experienced a huge improvement in productivity and maintainability during the process.
-            Nowaday, there are hundreds of microservices in the system,
-            and we are continuously creating new microservices for new business domains.</p>
-            <p>These microservices are written in different programming languages
-            like Scala, Ruby, Java, or JavaScript,
-            and usually are maintained by different teams spread on different countries.</p>
-            <p>As a result, the communication between people became one of the most serious topic in our system,
-            and Microbuilder is designed for communication.</p>
-            
-            <h2 id="how-microbuilder-works" class="section">How Microbuilder works</h2>
+            <h1 id="how-microbuilder-works" class="title">How Microbuilder works</h1>
             <p>We designed a language to define RESTful JSON API,
             named MIDL (Microbuilder Interface Definition Language).</p>
-            <p>MIDL is based on Haxe.
-            You can define data structures and endpoints in Haxe&#39;s object-oriented syntax,
-            with a little MIDL-specific annotations like <code>@:route</code>.</p>
+            <p>You can define data structures and endpoints in object-oriented syntax,
+            with a little annotations like <code>@:route</code>.</p>
             <pre><code>@:final class UserProfile {
   public function new() {}
   public var name:String;
