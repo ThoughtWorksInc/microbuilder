@@ -21,7 +21,7 @@ These microservices are written in different programming languages
 like Scala, Ruby, Java, or JavaScript,
 and usually are maintained by different teams spread on different countries.
 
-As a result, the communication between people became one of the most serious topic in our system,
+As a result, the communication between people became one of the most serious topics in our system,
 and Microbuilder is designed for communication.
 
 ## How Microbuilder works
