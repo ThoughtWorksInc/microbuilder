@@ -11,15 +11,21 @@ See the [project page](https://thoughtworksinc.github.io/microbuilder/) for more
 
 ## Supported languages and platforms
 
-* Scala
-* JavaScript
-* Java
-* C# 
-* PHP
-* C++
-* ActionScript 3 / Flash
-* NekoVM
-* Python
+* Client-side
+  * Scala
+  * JavaScript
+  * Java
+  * C# 
+  * PHP
+  * C++
+  * ActionScript 3 / Flash
+  * NekoVM
+  * Python
+* Server-side
+  * Scala
+* Format of Documentation
+  * Swagger
+  * Haxedoc
 
 ## License
 
