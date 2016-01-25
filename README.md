@@ -9,6 +9,18 @@ implemented in various languages communicating via RESTful JSON API.
 
 See the [project page](https://thoughtworksinc.github.io/microbuilder/) for more information.
 
+## Supported languages and platforms
+
+* Scala
+* JavaScript
+* Java
+* C# 
+* PHP
+* C++
+* ActionScript 3 / Flash
+* NekoVM
+* Python
+
 ## License
 
 Microbuilder is licensed under the terms of the Apache v2.0 license.
