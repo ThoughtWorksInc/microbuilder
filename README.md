@@ -21,8 +21,10 @@ See the [project page](https://thoughtworksinc.github.io/microbuilder/) for more
   * ActionScript 3 / Flash
   * NekoVM
   * Python
+  * Haxe
 * Server-side
   * Scala
+  * Any of your own existing JSON Web API
 * Format of Documentation
   * Swagger
   * Haxedoc
