@@ -6263,6 +6263,7 @@
                             <li><a class="toc level3" href="#5"><code>@:requestHeader</code></a></li>
                             <li><a class="toc level3" href="#6"><code>@:final</code></a></li>
                             <li><a class="toc level3" href="#7"><code>@:transient</code></a></li>
+                            <li><a class="toc level3" href="#8"><code>@:jsonFieldName</code></a></li>
                           </ul>
                         </li>
                       </ul>
@@ -6283,8 +6284,16 @@
                               </ul>
                             </li>
                             <li><a class="toc level3" href="../3-client-side-sdks/1-for-scala-client.html#publish-the-sdk">Publish the SDK</a></li>
-                            <li><a class="toc level3" href="../3-client-side-sdks/1-for-scala-client.html#dependency-settings-for-client-application">Dependency settings for Client application</a></li>
-                            <li><a class="toc level3" href="../3-client-side-sdks/1-for-scala-client.html#use-sdk">Use SDK</a></li>
+                            <li>
+                              <p><a class="toc level3" href="../3-client-side-sdks/1-for-scala-client.html#dependency-settings-for-client-application">Dependency settings for Client application</a></p>
+                              <ul>
+                                <li><a class="toc level4" href="../3-client-side-sdks/1-for-scala-client.html#setup-a-play-project">Setup a Play project</a></li>
+                                <li><a class="toc level4" href="../3-client-side-sdks/1-for-scala-client.html#add-sdk-dependencies">Add SDK dependencies</a></li>
+                                <li><a class="toc level4" href="../3-client-side-sdks/1-for-scala-client.html#use-the-sdk">Use the SDK</a></li>
+                                <li><a class="toc level4" href="../3-client-side-sdks/1-for-scala-client.html#other-play-configurations">Other Play configurations</a></li>
+                                <li><a class="toc level4" href="../3-client-side-sdks/1-for-scala-client.html#initialize-the-sdk">Initialize the SDK</a></li>
+                              </ul>
+                            </li>
                           </ul>
                         </li>
                         <li><a class="toc level2" href="../3-client-side-sdks/2-for-javascript-client.html">For JavaScript client</a></li>
@@ -6397,8 +6406,8 @@ interface IMyService {
             See <a href="3-json-schema.html#custom-class-types">Custom class types</a> section for more information.</p>
             
             <h2 id="7" class="section"><code>@:transient</code></h2>
-            <p><code>@:transient</code> can be put in front of a MIDL class.
-            A <code>@:transient</code> field will be ignored when mapping to JSON.</p>
+            <p><code>@:transient</code> can be put in front of a field of MIDL class.
+            The <code>@:transient</code> field will be ignored when mapping to JSON.</p>
             <p>For example, given a definition for <code>MyData</code></p>
             <pre><code>@:final
 class MyData {
@@ -6407,8 +6416,20 @@ class MyData {
   @:transient public var transientField:Int = 2;
 }</code></pre>
             <p>Then, create a <code>MyData</code> with default intial filed values: <code>new MyData()</code>.
-            It will become <code>{ &quot;notTransientField&quot;: 1 }</code>.
+            It will become <code>{ &quot;notTransientField&quot;: 1 }</code> when converting to JSON format.
             <code>transientField</code> will not be present in the JSON because of the <code>@:transient</code>.</p>
+            
+            <h2 id="8" class="section"><code>@:jsonFieldName</code></h2>
+            <p><code>@:jsonFieldName</code> can be put in front of a field of MIDL class.
+            It specifies the key for the field when converting from/to JSON.</p>
+            <p>For example, given a definition for <code>MyData</code></p>
+            <pre><code>@:final
+class MyData {
+  public function new() {}
+  @:jsonFieldName(&quot;my-field&quot;) public var myField:Int = 1;
+}</code></pre>
+            <p>Then, create a <code>MyData</code> with default intial filed values: <code>new MyData()</code>.
+            It will become <code>{ &quot;my-field&quot;: 1 }</code> when converting to JSON format.</p>
 
         </div>
     </div>
