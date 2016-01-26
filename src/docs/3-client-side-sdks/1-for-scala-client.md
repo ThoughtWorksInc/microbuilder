@@ -237,3 +237,5 @@ which should be initialized in the Play framework's [application entry point](ht
 Note that `newProxy` method will look for implcit stubs that generated from MIDL. They are `com.thoughtworks.microbuilder.tutorial.githubSdk.proxy.MicrobuilderOutgoingProxyFactory` and
 `com.thoughtworks.microbuilder.tutorial.githubSdk.proxy.MicrobuilderRouteConfigurationFactory`.
 You must import `MicrobuilderOutgoingProxyFactory._` and `MicrobuilderRouteConfigurationFactory._` to enable those implicit values generated in the two classes.
+
+You can find the entire example of client-side application at [organization-list](https://github.com/ThoughtWorksInc/organization-list).
