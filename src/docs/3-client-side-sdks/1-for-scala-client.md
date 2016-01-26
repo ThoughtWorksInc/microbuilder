@@ -71,13 +71,13 @@ endpoint in a MIDL interface.
 
     import jsonStream.rpc.Future;
     import haxe.ds.Vector;
-    import com.thoughtworks.microbuilder.tutorial.githubSdk.model.OrgnizationSummary;
+    import com.thoughtworks.microbuilder.tutorial.githubSdk.model.OrganizationSummary;
 
     @:nativeGen
     interface IOrganizationService {
 
-      @:route("GET", "/users/{username}/orgs")
-      function listUserOrganizations(username:String):Future<Vector<OrgnizationSummary>>;
+      @:route("GET", "users/{username}/orgs")
+      function listUserOrganizations(username:String):Future<Vector<OrganizationSummary>>;
 
       // TODO: Other endpoints described at https://developer.github.com/v3/orgs/
 
@@ -85,16 +85,16 @@ endpoint in a MIDL interface.
 
 ### MIDL JSON schema definition
 
-The MIDL reference to a MIDL JSON schema `OrgnizationSummary`,
+The MIDL reference to a MIDL JSON schema `OrganizationSummary`,
 which should be defined under `com.thoughtworks.microbuilder.tutorial.githubSdk.model` package,
 or `src/haxe/com/thoughtworks/microbuilder/tutorial/githubSdk/model` directory.
 You can run `sbt jsonStreamModelModules::packageName` in shell to check that.
 
-    // src/haxe/com/thoughtworks/microbuilder/tutorial/githubSdk/model/OrgnizationSummary.hx
+    // src/haxe/com/thoughtworks/microbuilder/tutorial/githubSdk/model/OrganizationSummary.hx
     package com.thoughtworks.microbuilder.tutorial.githubSdk.model;
 
     @:final
-    class OrgnizationSummary {
+    class OrganizationSummary {
 
       public function new() {}
 
@@ -118,14 +118,122 @@ Now you can execute the following command to compile and package the SDK to a JA
 
 See [Publishing](http://www.scala-sbt.org/0.13/docs/Publishing.html) in Sbt documentation for how to setup Sbt to publish your SDK.
 
-See this [repository](https://github.com/ThoughtWorksInc/github-sdk/tree/v1.0.0) for the complete code base.
+See this [repository](https://github.com/ThoughtWorksInc/github-sdk/tree/v1.0.2) for the complete code base.
 
 ## Dependency settings for Client application
 
 Now, create your client-side application.
 
-(To be continued)
+### Setup a Play project
 
-## Use SDK
+Fist, create the project with the help of `sbt` or `activator`. You can see the documentation from [Play Framework web site](https://www.playframework.com/).
 
-(To be continued)
+### Add SDK dependencies
+
+Then, add the SDK dependencies to your `build.sbt`:
+
+    // Dependency to the Github SDK we just created.
+    libraryDependencies += "com.thoughtworks.microbuilder.tutorial" %% "github-sdk" % "1.0.2"
+
+    // Runtime library to integrate SDK into a Play application.
+    libraryDependencies += "com.thoughtworks.microbuilder" %% "microbuilder-play" % "3.1.0"
+
+    // A library that deals with asynchronous operation.
+    libraryDependencies += "com.thoughtworks.each" %% "each" % "0.5.1"
+
+### Use the SDK
+
+After the SDK dependencies are added, we can create a controller which use `IOrganizationService` sending RESTful requests.
+
+    package com.thoughtworks.microbuilder.tutorial.organizationList.controllers
+
+    import play.api.mvc.{Action, Controller}
+
+    import scala.concurrent.{ExecutionContext, Future}
+
+    import scalaz.std.scalaFuture._
+    import com.thoughtworks.each.Monadic._
+
+    import com.thoughtworks.microbuilder.play.Implicits._
+
+    import com.thoughtworks.microbuilder.tutorial.githubSdk.model.OrganizationSummary
+    import com.thoughtworks.microbuilder.tutorial.githubSdk.rpc.IOrganizationService
+    import com.thoughtworks.microbuilder.tutorial.organizationList.views.html.renderOrganizationList
+
+
+    class OrganizationListController(organizationService: IOrganizationService)(implicit ec: ExecutionContext) extends Controller {
+
+      def showOrganizationList(username: String) = Action.async(throwableMonadic[Future] {
+        val future: Future[Array[OrganizationSummary]] = organizationService.listUserOrganizations(username)
+        Ok(renderOrganizationList(username, future.each))
+      })
+
+    }
+
+In this example, you convert result of `listUserOrganizations` to a asynchronous `Future`,
+then use [Scalaz](https://scalaz.github.io/scalaz) and [Each](https://github.com/ThoughtWorksInc/each) handling the future.
+
+### Other Play configurations
+
+In order to use the `OrganizationListController`,
+add corresponding Play's routes configuration for it.
+
+    # conf/routes
+    GET        /users/:username        com.thoughtworks.microbuilder.tutorial.organizationList.controllers.OrganizationListController.showOrganizationList(username:String)
+
+Then, create the Twirl template `renderOrganizationList` used by `OrganizationListController`
+
+    @import com.thoughtworks.microbuilder.tutorial.githubSdk.model.OrganizationSummary
+    @(username: String, organizations: Array[OrganizationSummary])
+    <html>
+      <body>
+        <h1>@username's organizations</h1>
+        <ul>
+          @for(organization <- organizations) {
+            <li>
+              <img src="@organization.avatar_url" width="20" height="20" title="@organization.description"/>
+              @organization.login
+            </li>
+          }
+        </ul>
+      </body>
+    </html>
+
+This template renders data got from Github API.
+
+### Initialize the SDK
+
+As we defined before,
+the `organizationService:IOrganizationService` is a parameter of `OrganizationListController`,
+which should be initialized in the Play framework's [application entry point](https://www.playframework.com/documentation/2.4.x/ScalaCompileTimeDependencyInjection#Application-entry-point).
+
+    package com.thoughtworks.microbuilder.tutorial.organizationList
+
+    import com.thoughtworks.microbuilder.play.PlayOutgoingJsonService
+    import com.thoughtworks.microbuilder.tutorial.githubSdk.proxy.MicrobuilderOutgoingProxyFactory._
+    import com.thoughtworks.microbuilder.tutorial.githubSdk.proxy.MicrobuilderRouteConfigurationFactory._
+    import com.thoughtworks.microbuilder.tutorial.githubSdk.rpc.IOrganizationService
+    import com.thoughtworks.microbuilder.tutorial.organizationList.controllers.OrganizationListController
+    import play.api.libs.ws.ning.NingWSComponents
+    import play.api.{BuiltInComponentsFromContext, Application, ApplicationLoader}
+    import play.api.ApplicationLoader.Context
+    import router.Routes
+
+    class Loader extends ApplicationLoader {
+      override def load(context: Context): Application = {
+
+        val components = new BuiltInComponentsFromContext(context) with NingWSComponents {
+          implicit def executionContext = actorSystem.dispatcher
+
+          lazy val organizationService = PlayOutgoingJsonService.newProxy[IOrganizationService]("https://api.github.com/", wsApi)
+
+          override lazy val router = new Routes(httpErrorHandler, new OrganizationListController(organizationService)(actorSystem.dispatcher))
+        }
+
+        components.application
+      }
+    }
+
+Note that `newProxy` method will look for implcit stubs that generated from MIDL. They are `com.thoughtworks.microbuilder.tutorial.githubSdk.proxy.MicrobuilderOutgoingProxyFactory` and
+`com.thoughtworks.microbuilder.tutorial.githubSdk.proxy.MicrobuilderRouteConfigurationFactory`.
+You must import `MicrobuilderOutgoingProxyFactory._` and `MicrobuilderRouteConfigurationFactory._` to enable those implicit values generated in the two classes.

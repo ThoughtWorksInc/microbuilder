@@ -104,8 +104,8 @@ See [Custom class types](3-json-schema.html#custom-class-types) section for more
 
 ## `@:transient`
 
-`@:transient` can be put in front of a MIDL class.
-A `@:transient` field will be ignored when mapping to JSON.
+`@:transient` can be put in front of a field of MIDL class.
+The `@:transient` field will be ignored when mapping to JSON.
 
 For example, given a definition for `MyData`
 
@@ -117,5 +117,21 @@ For example, given a definition for `MyData`
     }
 
 Then, create a `MyData` with default intial filed values: `new MyData()`.
-It will become `{ "notTransientField": 1 }`.
+It will become `{ "notTransientField": 1 }` when converting to JSON format.
 `transientField` will not be present in the JSON because of the `@:transient`.
+
+## `@:jsonFieldName`
+
+`@:jsonFieldName` can be put in front of a field of MIDL class.
+It specifies the key for the field when converting from/to JSON.
+
+For example, given a definition for `MyData`
+
+    @:final
+    class MyData {
+      public function new() {}
+      @:jsonFieldName("my-field") public var myField:Int = 1;
+    }
+
+Then, create a `MyData` with default intial filed values: `new MyData()`.
+It will become `{ "my-field": 1 }` when converting to JSON format.
