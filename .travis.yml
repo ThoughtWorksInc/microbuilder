@@ -72,5 +72,5 @@ deploy:
   script: ./deploy.sh
   on:
     scala: 2.11.7
-    condition: -e ./deploy.sh && "$HAXE_FILE" == "haxe_2015-10-12_master_deab442.tar.gz"
+    condition: -e ./deploy.sh && "$HAXE_FILE" == "haxe_2015-05-12_master_77d171b.tar.gz"
     all_branches: true
