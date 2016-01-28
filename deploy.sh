@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sbt ghpagesPushSite
+sbt "++ $TRAVIS_SCALA_VERSION ghpagesPushSite"
