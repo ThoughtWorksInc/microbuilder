@@ -172,6 +172,8 @@ After the SDK dependencies are added, we can create a controller which use `IOrg
 
 In this example, you convert result of `listUserOrganizations` to a asynchronous `Future`,
 then use [Scalaz](https://scalaz.github.io/scalaz) and [Each](https://github.com/ThoughtWorksInc/each) handling the future.
+Then, you pass the result to a Twirl template `renderOrganizationList` to render the HTML,
+which will be created later in this article.
 
 ### Other Play configurations
 
@@ -227,15 +229,31 @@ which should be initialized in the Play framework's [application entry point](ht
 
           lazy val organizationService = PlayOutgoingJsonService.newProxy[IOrganizationService]("https://api.github.com/", wsApi)
 
-          override lazy val router = new Routes(httpErrorHandler, new OrganizationListController(organizationService)(actorSystem.dispatcher))
+          lazy val organizationListController = new OrganizationListController(organizationService)
+
+          override lazy val router = new Routes(httpErrorHandler, organizationListController)
         }
 
         components.application
       }
     }
 
+The `Loader` prepared an `IOrganizationService` instance from `newProxy` method,
+and passed the  `IOrganizationService` to the constructor of `OrganizationListController`.
+As a result,
+the `OrganizationListController` is able to use methods on `IOrganizationService` as we shown before.
+
 Note that `newProxy` method will look for implcit stubs that generated from MIDL. They are `com.thoughtworks.microbuilder.tutorial.githubSdk.proxy.MicrobuilderOutgoingProxyFactory` and
 `com.thoughtworks.microbuilder.tutorial.githubSdk.proxy.MicrobuilderRouteConfigurationFactory`.
 You must import `MicrobuilderOutgoingProxyFactory._` and `MicrobuilderRouteConfigurationFactory._` to enable those implicit values generated in the two classes.
+
+Now you built the entire application.
+You can run it from Sbt
+
+```
+sbt run
+```
+
+Then visit http://localhost:9000/users/your-user-name to see your Github organization list.
 
 You can find the entire example of client-side application at [organization-list](https://github.com/ThoughtWorksInc/organization-list).
