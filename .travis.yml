@@ -22,14 +22,17 @@ addons:
     - libgc1c2
 
 before_install:
-  - travis_retry wget http://nekovm.org/media/neko-2.0.0-linux64.tar.gz
-  - tar zxvf neko-2.0.0-linux64.tar.gz
-  - travis_retry wget http://hxbuilds.s3-website-us-east-1.amazonaws.com/builds/haxe/linux64/"$HAXE_FILE"
-  - tar zxvf "$HAXE_FILE"
-  - mv haxe-*/ haxe/
-  - export PATH=$PATH:$PWD/haxe:$PWD/neko-2.0.0-linux
-  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/neko-2.0.0-linux
-  - export HAXE_STD_PATH=$PWD/haxe/std
+  - mkdir $HOME/untar
+  - mkdir $HOME/opt
+  - travis_retry wget --output-document=$HOME/neko.tar.gz http://nekovm.org/media/neko-2.0.0-linux64.tar.gz
+  - tar zxvf $HOME/neko.tar.gz -C $HOME/untar/
+  - mv $HOME/untar/neko-*/ $HOME/opt/neko/
+  - travis_retry wget --output-document=$HOME/haxe.tar.gz http://hxbuilds.s3-website-us-east-1.amazonaws.com/builds/haxe/linux64/"$HAXE_FILE"
+  - tar zxvf $HOME/haxe.tar.gz -C $HOME/untar/
+  - mv $HOME/untar/haxe-*/ $HOME/opt/haxe/
+  - export PATH=$PATH:$HOME/opt/haxe:$HOME/opt/neko
+  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/opt/neko
+  - export HAXE_STD_PATH=$HOME/opt/haxe/std
   - haxelib setup $HOME/.haxelib-local
   - travis_retry haxelib install hxjava --always
 
