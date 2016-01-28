@@ -32,7 +32,7 @@ before_install:
   - mv $HOME/untar/haxe-*/ $HOME/opt/haxe/
   - export PATH=$PATH:$HOME/opt/haxe:$HOME/opt/neko
   - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/opt/neko
-  - export HAXE_STD_PATH=$HOME/opt/haxe/haxe/std
+  - export HAXE_STD_PATH=$HOME/opt/haxe/std
   - haxelib setup $HOME/.haxelib-local
   - travis_retry haxelib install hxjava --always
 
