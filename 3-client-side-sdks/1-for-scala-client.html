@@ -1083,7 +1083,9 @@ class OrganizationListController(organizationService: IOrganizationService)(impl
 
 }</code></pre>
                 <p>In this example, you convert result of <code>listUserOrganizations</code> to a asynchronous <code>Future</code>,
-                then use <a href="https://scalaz.github.io/scalaz">Scalaz</a> and <a href="https://github.com/ThoughtWorksInc/each">Each</a> handling the future.</p>
+                then use <a href="https://scalaz.github.io/scalaz">Scalaz</a> and <a href="https://github.com/ThoughtWorksInc/each">Each</a> handling the future.
+                Then, you pass the result to a Twirl template <code>renderOrganizationList</code> to render the HTML,
+                which will be created later in this article.</p>
                 
                 <h3 id="other-play-configurations" class="section">Other Play configurations</h3>
                 <p>In order to use the <code>OrganizationListController</code>,
@@ -1132,15 +1134,26 @@ class Loader extends ApplicationLoader {
 
       lazy val organizationService = PlayOutgoingJsonService.newProxy[IOrganizationService](&quot;https://api.github.com/&quot;, wsApi)
 
-      override lazy val router = new Routes(httpErrorHandler, new OrganizationListController(organizationService)(actorSystem.dispatcher))
+      lazy val organizationListController = new OrganizationListController(organizationService)
+
+      override lazy val router = new Routes(httpErrorHandler, organizationListController)
     }
 
     components.application
   }
 }</code></pre>
+                <p>The <code>Loader</code> prepared an <code>IOrganizationService</code> instance from <code>newProxy</code> method,
+                and passed the  <code>IOrganizationService</code> to the constructor of <code>OrganizationListController</code>.
+                As a result,
+                the <code>OrganizationListController</code> is able to use methods on <code>IOrganizationService</code> as we shown before.</p>
                 <p>Note that <code>newProxy</code> method will look for implcit stubs that generated from MIDL. They are <code>com.thoughtworks.microbuilder.tutorial.githubSdk.proxy.MicrobuilderOutgoingProxyFactory</code> and
                 <code>com.thoughtworks.microbuilder.tutorial.githubSdk.proxy.MicrobuilderRouteConfigurationFactory</code>.
                 You must import <code>MicrobuilderOutgoingProxyFactory._</code> and <code>MicrobuilderRouteConfigurationFactory._</code> to enable those implicit values generated in the two classes.</p>
+                <p>Now you built the entire application.
+                You can run it from Sbt</p>
+                <p><code>`
+sbt run</code>`</p>
+                <p>Then visit http://localhost:9000/users/your-user-name to see your Github organization list.</p>
                 <p>You can find the entire example of client-side application at <a href="https://github.com/ThoughtWorksInc/organization-list">organization-list</a>.</p>
 
             </div>
