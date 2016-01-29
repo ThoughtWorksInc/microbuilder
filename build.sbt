@@ -19,12 +19,7 @@ lazy val `microbuilder-sample` = project dependsOn `microbuilder-play` dependsOn
 
 lazy val `microbuilder-js` = project dependsOn `microbuilder-core`
 
-
 ghpages.settings
-
-git.remoteRepo := "git@github.com:ThoughtWorksInc/microbuilder.git"
-
-git.gitCurrentBranch := "master"
 
 LaikaPlugin.defaults
 
