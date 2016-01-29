@@ -22,10 +22,6 @@ lazy val `microbuilder-js` = project dependsOn `microbuilder-core`
 
 ghpages.settings
 
-git.remoteRepo := "git@github.com:ThoughtWorksInc/microbuilder.git"
-
-git.gitCurrentBranch := "master"
-
 LaikaPlugin.defaults
 
 mappings in synchLocal := (mappings in LaikaKeys.site in Laika).value

@@ -20,3 +20,4 @@ project/plugins/project/
 *.iml
 out/
 secret/
+local.sbt
