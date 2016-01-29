@@ -19,7 +19,6 @@ lazy val `microbuilder-sample` = project dependsOn `microbuilder-play` dependsOn
 
 lazy val `microbuilder-js` = project dependsOn `microbuilder-core`
 
-
 ghpages.settings
 
 LaikaPlugin.defaults
