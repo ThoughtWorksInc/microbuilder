@@ -25,7 +25,7 @@ LaikaPlugin.defaults
 
 mappings in synchLocal := (mappings in LaikaKeys.site in Laika).value
 
-git.remoteRepo in ThisBuild := s"https://github.com/ThoughtWorksInc/${name.value}.git"
+git.remoteRepo := s"git@github.com:ThoughtWorksInc/${name.value}.git"
 
 developers := List(
   Developer(
