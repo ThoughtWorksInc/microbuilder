@@ -560,8 +560,14 @@
         margin-bottom: 1rem;
         font-weight: normal;
         color: #159957; }
+      .container h1 code, .container h2 code, .container h3 code, .container h4 code, .container h5 code, .container h6 code {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        font-weight: normal;
+        font-size: 1.5rem;
+        color: #159957; }
       .container p {
-        margin-bottom: 1em; }
+        margin-bottom: 0em; }
       .container code {
         padding: 2px 4px;
         font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
@@ -652,11 +658,18 @@
 
         .catalog {
           display: table-cell;
-          width: 35%;
+          width: 30%;
+        }
+        .catalog ul {
+          padding-left: 20px;
+          list-style-type: none;
+        }
+        .catalog a {
+          color: #606C71;
         }
         .content {
           display: table-cell;
-          margin-left: 30px;
+          padding: 10px 30px;
         }
 
       @media screen and (min-width: 64em) {
