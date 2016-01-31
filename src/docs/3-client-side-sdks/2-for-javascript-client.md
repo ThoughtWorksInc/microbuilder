@@ -128,56 +128,54 @@ Now, create your client-side application.
 
 First, execute `npm init .` in a shell, and fill fields it asked you:
 
-```
-$ npm init .
-This utility will walk you through creating a package.json file.
-It only covers the most common items, and tries to guess sensible defaults.
+    $ npm init .
+    This utility will walk you through creating a package.json file.
+    It only covers the most common items, and tries to guess sensible defaults.
 
-See `npm help json` for definitive documentation on these fields
-and exactly what they do.
+    See `npm help json` for definitive documentation on these fields
+    and exactly what they do.
 
-Use `npm install <pkg> --save` afterwards to install a package and
-save it as a dependency in the package.json file.
+    Use `npm install <pkg> --save` afterwards to install a package and
+    save it as a dependency in the package.json file.
 
-Press ^C at any time to quit.
-name: (organization-list-js)
-version: (1.0.0)
-description:
-entry point: (index.js)
-test command:
-git repository: (https://github.com/Atry/organization-list-js.git)
-keywords: microbuilder github
-author: Yang Bo
-license: (ISC) MIT
-About to write to /Users/twer/workspace/organization-list-js/package.json:
+    Press ^C at any time to quit.
+    name: (organization-list-js)
+    version: (1.0.0)
+    description:
+    entry point: (index.js)
+    test command:
+    git repository: (https://github.com/Atry/organization-list-js.git)
+    keywords: microbuilder github
+    author: Yang Bo
+    license: (ISC) MIT
+    About to write to /Users/twer/workspace/organization-list-js/package.json:
 
-{
-  "name": "organization-list-js",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Atry/organization-list-js.git"
-  },
-  "keywords": [
-    "microbuilder",
-    "github"
-  ],
-  "author": "Yang Bo",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Atry/organization-list-js/issues"
-  },
-  "homepage": "https://github.com/Atry/organization-list-js#readme"
-}
+    {
+      "name": "organization-list-js",
+      "version": "1.0.0",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Atry/organization-list-js.git"
+      },
+      "keywords": [
+        "microbuilder",
+        "github"
+      ],
+      "author": "Yang Bo",
+      "license": "MIT",
+      "bugs": {
+        "url": "https://github.com/Atry/organization-list-js/issues"
+      },
+      "homepage": "https://github.com/Atry/organization-list-js#readme"
+    }
 
 
-Is this ok? (yes)
-```
+    Is this ok? (yes)
 
 ### Add SDK dependencies
 
