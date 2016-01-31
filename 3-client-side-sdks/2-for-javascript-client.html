@@ -1081,50 +1081,54 @@ class OrganizationSummary {
                 
                 <h3 id="setup-a-static-web-project" class="section">Setup a static web project</h3>
                 <p>First, execute <code>npm init .</code> in a shell, and fill fields it asked you:</p>
-                <p>```
-                $ npm init .
-                This utility will walk you through creating a package.json file.
-                It only covers the most common items, and tries to guess sensible defaults.</p>
-                <p>See <code>npm help json</code> for definitive documentation on these fields
-                and exactly what they do.</p>
-                <p>Use <code>npm install &lt;pkg&gt; --save</code> afterwards to install a package and
-                save it as a dependency in the package.json file.</p>
-                <p>Press ^C at any time to quit.
-                name: (organization-list-js)
-                version: (1.0.0)
-                description:
-                entry point: (index.js)
-                test command:
-                git repository: (https://github.com/Atry/organization-list-js.git)
-                keywords: microbuilder github
-                author: Yang Bo
-                license: (ISC) MIT
-                About to write to /Users/twer/workspace/organization-list-js/package.json:</p>
-                <p>{
-                  &quot;name&quot;: &quot;organization-list-js&quot;,
-                  &quot;version&quot;: &quot;1.0.0&quot;,
-                  &quot;description&quot;: &quot;&quot;,
-                  &quot;main&quot;: &quot;index.js&quot;,
-                  &quot;scripts&quot;: {
-                    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
-                  },
-                  &quot;repository&quot;: {
-                    &quot;type&quot;: &quot;git&quot;,
-                    &quot;url&quot;: &quot;git+https://github.com/Atry/organization-list-js.git&quot;
-                  },
-                  &quot;keywords&quot;: [
-                    &quot;microbuilder&quot;,
-                    &quot;github&quot;
-                  ],
-                  &quot;author&quot;: &quot;Yang Bo&quot;,
-                  &quot;license&quot;: &quot;MIT&quot;,
-                  &quot;bugs&quot;: {
-                    &quot;url&quot;: &quot;https://github.com/Atry/organization-list-js/issues&quot;
-                  },
-                  &quot;homepage&quot;: &quot;https://github.com/Atry/organization-list-js#readme&quot;
-                }</p>
-                <p>Is this ok? (yes)
-                ```</p>
+                <pre><code>$ npm init .
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help json` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install &lt;pkg&gt; --save` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+name: (organization-list-js)
+version: (1.0.0)
+description:
+entry point: (index.js)
+test command:
+git repository: (https://github.com/Atry/organization-list-js.git)
+keywords: microbuilder github
+author: Yang Bo
+license: (ISC) MIT
+About to write to /Users/twer/workspace/organization-list-js/package.json:
+
+{
+  &quot;name&quot;: &quot;organization-list-js&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;repository&quot;: {
+    &quot;type&quot;: &quot;git&quot;,
+    &quot;url&quot;: &quot;git+https://github.com/Atry/organization-list-js.git&quot;
+  },
+  &quot;keywords&quot;: [
+    &quot;microbuilder&quot;,
+    &quot;github&quot;
+  ],
+  &quot;author&quot;: &quot;Yang Bo&quot;,
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;bugs&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Atry/organization-list-js/issues&quot;
+  },
+  &quot;homepage&quot;: &quot;https://github.com/Atry/organization-list-js#readme&quot;
+}
+
+
+Is this ok? (yes)</code></pre>
                 
                 <h3 id="add-sdk-dependencies" class="section">Add SDK dependencies</h3>
                 <p>Then, install <code>microbuilder-js</code>, <code>browser-request</code> <code>github-sdk</code> as dependencies:</p>
