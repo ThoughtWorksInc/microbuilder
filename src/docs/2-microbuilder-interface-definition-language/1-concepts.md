@@ -43,9 +43,9 @@ which corresponds to a JSON data structure.
 
 As a result, the above MIDL describes a RESTful JSON service that has the following behaviors:
 
- * When a client sends a GET request to the service at `/users/user-id`,
-   the server returns a JSON response of the user profile data for `user-id`
-   like `{ "name": "User Name", "email": "user@host.com", "age": 18 }`.
- * When a client sends a PUT request to the service at `/users/user-id` with a JSON content
-   like `{ "name": "User Name", "email": "user@host.com", "age": 18 }`,
-   the server returns no data but HTTP status.
+* When a client sends a GET request to the service at `/users/user-id`,
+ the server returns a JSON response of the user profile data for `user-id`
+ like `{ "name": "User Name", "email": "user@host.com", "age": 18 }`.
+* When a client sends a PUT request to the service at `/users/user-id` with a JSON content
+ like `{ "name": "User Name", "email": "user@host.com", "age": 18 }`,
+ the server returns no data but HTTP status.

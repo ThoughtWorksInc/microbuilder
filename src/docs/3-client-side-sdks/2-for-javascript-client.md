@@ -3,12 +3,12 @@
 In order to call a RESTful JSON API from a JavaScript application,
 you need the following steps:
 
- 1. Create a Sbt project, which contains the MIDL definition of the RESTful JSON API
-    that you will call in your JavaScript application.
-    The project is also known as the API's SDK.
- 2. Publish the NPM package of SDK.
- 3. Add the dependency to the SDK into your JavaScript application's `package.json`.
- 4. In your JavaScript application, initilize the service defined in SDK and invoke methods of the service.
+1. Create a Sbt project, which contains the MIDL definition of the RESTful JSON API
+  that you will call in your JavaScript application.
+  The project is also known as the API's SDK.
+2. Publish the NPM package of SDK.
+3. Add the dependency to the SDK into your JavaScript application's `package.json`.
+4. In your JavaScript application, initilize the service defined in SDK and invoke methods of the service.
 
 In this article,
 we will create an application that queries the public organization memberships for a specified Github user.

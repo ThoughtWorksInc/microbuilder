@@ -39,9 +39,9 @@ In the above code block, `RequestType` must be a type that describes JSON schema
 
 MIDL reuses some standard types in Haxe language as primary types of JSON schema.
 
-  * [Int](http://api.haxe.org/Int.html) and [Float](http://api.haxe.org/Int.html) correspond to JavaScript `Number` literal, e.g. `1.2`, `-3.4`, `3.2349E-13`
-  * [String](http://api.haxe.org/String.html) corresponds to JavaScript `String` literal, e.g. `"string value"`.
-  * [Bool](http://api.haxe.org/String.html) corresponds to JavaScript `Boolean` literal, which could be `false` or `true`.
+* [Int](http://api.haxe.org/Int.html) and [Float](http://api.haxe.org/Int.html) correspond to JavaScript `Number` literal, e.g. `1.2`, `-3.4`, `3.2349E-13`
+* [String](http://api.haxe.org/String.html) corresponds to JavaScript `String` literal, e.g. `"string value"`.
+* [Bool](http://api.haxe.org/String.html) corresponds to JavaScript `Boolean` literal, which could be `false` or `true`.
 
 ### Array types
 
