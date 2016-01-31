@@ -7,7 +7,7 @@ you need the following steps:
     that you will call in your Scala application.
     The project is also known as the API's SDK.
  2. Publish the JAR package of SDK (optional).
- 3. Add the dependency of SDK to your Scala application.
+ 3. Add the dependency to the SDK into your Scala application's `build.sbt`.
  4. In your Scala application, initilize the service defined in SDK and invoke methods of the service.
 
 In this article,
@@ -140,6 +140,11 @@ Then, add the SDK dependencies to your `build.sbt`:
 
     // A library that deals with asynchronous operation.
     libraryDependencies += "com.thoughtworks.each" %% "each" % "0.5.1"
+
+Alternatively, You can embed the code base of SDK as a child project of the Play project,
+if you don't want to publish the SDK.
+See [Multi-project builds](http://www.scala-sbt.org/0.13/docs/Multi-Project.html) for more information.
+
 
 ### Use the SDK
 
