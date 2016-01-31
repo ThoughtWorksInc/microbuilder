@@ -916,7 +916,31 @@
                                 </li>
                               </ul>
                             </li>
-                            <li><span class="toc level2 active">For JavaScript client</span></li>
+                            <li>
+                              <p class="toc level2 active">For JavaScript client</p>
+                              <ul>
+                                <li><a class="toc level3" href="#requirement">Requirement</a></li>
+                                <li>
+                                  <p><a class="toc level3" href="#create-the-sdk">Create the SDK</a></p>
+                                  <ul>
+                                    <li><a class="toc level4" href="#sbt-configuration-for-sdk">Sbt configuration for SDK</a></li>
+                                    <li><a class="toc level4" href="#midl-api-definition">MIDL API definition</a></li>
+                                    <li><a class="toc level4" href="#midl-json-schema-definition">MIDL JSON schema definition</a></li>
+                                  </ul>
+                                </li>
+                                <li><a class="toc level3" href="#publish-the-sdk">Publish the SDK</a></li>
+                                <li>
+                                  <p><a class="toc level3" href="#dependency-settings-for-client-application">Dependency settings for Client application</a></p>
+                                  <ul>
+                                    <li><a class="toc level4" href="#setup-a-static-web-project">Setup a static web project</a></li>
+                                    <li><a class="toc level4" href="#add-sdk-dependencies">Add SDK dependencies</a></li>
+                                    <li><a class="toc level4" href="#the-web-page">The web page</a></li>
+                                    <li><a class="toc level4" href="#initialize-the-sdk">Initialize the SDK</a></li>
+                                    <li><a class="toc level4" href="#use-the-sdk">Use the SDK</a></li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </li>
                             <li><a class="toc level2" href="3-for-other-language-client.html">For other language client</a></li>
                           </ul>
                         </li>
@@ -944,7 +968,254 @@
 
                 
                 <h1 id="for-javascript-client" class="title">For JavaScript client</h1>
-                <p>(To be continued)</p>
+                <p>In order to call a RESTful JSON API from a JavaScript application,
+                you need the following steps:</p>
+                <ol class="arabic">
+                  <li>Create a Sbt project, which contains the MIDL definition of the RESTful JSON API
+                  that you will call in your JavaScript application.
+                  The project is also known as the API&#39;s SDK.</li>
+                </ol>
+                <ol class="arabic">
+                  <li>Publish the NPM package of SDK.</li>
+                </ol>
+                <ol class="arabic">
+                  <li>Add the dependency to the SDK into your JavaScript application&#39;s <code>package.json</code>.</li>
+                </ol>
+                <ol class="arabic">
+                  <li>In your JavaScript application, initilize the service defined in SDK and invoke methods of the service.</li>
+                </ol>
+                <p>In this article,
+                we will create an application that queries the public organization memberships for a specified Github user.
+                The application is a static web project,
+                and will call <a href="https://developer.github.com/v3/">Github API</a> via a Microbuilder SDK,
+                which is also created in this article.</p>
+                
+                <h2 id="requirement" class="section">Requirement</h2>
+                <p>Microbuilder requires <a href="http://haxe.org/">Haxe</a> for code generation,
+                and <a href="http://www.scala-sbt.org/">Sbt</a> to manage build pipeline.</p>
+                <p>You need download and install <a href="http://haxe.org/download/">Haxe 3.2.1</a> and
+                <a href="http://www.scala-sbt.org/download.html">Sbt 0.13.9</a>,
+                then setup Haxelib with the folloiwing commands:</p>
+                <pre><code>haxelib setup ~/.haxelib.d
+haxelib install hxjava
+haxelib install dox
+haxelib install hxcs</code></pre>
+                
+                <h2 id="create-the-sdk" class="section">Create the SDK</h2>
+                
+                <h3 id="sbt-configuration-for-sdk" class="section">Sbt configuration for SDK</h3>
+                <p>Prepare an empty directory for the SDK project.
+                Then, create <code>project/plugins.sbt</code>
+                and add <a href="https://github.com/ThoughtWorksInc/sbt-microbuilder">sbt-microbuilder</a> dependency into it.</p>
+                <pre><code>// project/plugins.sbt
+addSbtPlugin(&quot;com.thoughtworks.microbuilder&quot; % &quot;sbt-microbuilder&quot; % &quot;3.0.1&quot;)</code></pre>
+                <p>There are multiple plugins in the sbt-microbuilder library.
+                <code>MicrobuilderJsSdk</code> is one of these plugins.
+                The plugin will add necessary settings for a SDK project for JavaScript target.</p>
+                <p>So you edit build.sbt, and add <code>enablePlugins(MicrobuilderJsSdk)</code>:</p>
+                <pre><code>// build.sbt
+enablePlugins(MicrobuilderJsSdk)
+
+organization := &quot;com.thoughtworks.microbuilder.tutorial&quot;
+
+name := &quot;github-sdk&quot;</code></pre>
+                
+                <h3 id="midl-api-definition" class="section">MIDL API definition</h3>
+                <p>By default, your MIDL is under <code>src/haxe</code> directory,
+                and the package name of your MIDL is caculated from <code>organization</code> and <code>name</code> settings in your <code>build.sbt</code>.</p>
+                <p>The interface of MIDL API should be put under <code>com.thoughtworks.microbuilder.tutorial.githubSdk.rpc</code> package,
+                or <code>src/haxe/com/thoughtworks/microbuilder/tutorial/githubSdk/rpc</code> directory.
+                You can run <code>sbt jsonStreamServiceModules::packageName</code> in shell to check that.</p>
+                <p>Now you define <a href="https://developer.github.com/v3/orgs/#list-user-organizations">List user organizations</a>
+                endpoint in a MIDL interface.</p>
+                <pre><code>// src/haxe/com/thoughtworks/microbuilder/tutorial/githubSdk/rpc/IOrganizationService.hx
+package com.thoughtworks.microbuilder.tutorial.githubSdk.rpc;
+
+import jsonStream.rpc.Future;
+import haxe.ds.Vector;
+import com.thoughtworks.microbuilder.tutorial.githubSdk.model.OrganizationSummary;
+
+@:nativeGen
+interface IOrganizationService {
+
+  @:route(&quot;GET&quot;, &quot;users/{username}/orgs&quot;)
+  function listUserOrganizations(username:String):Future&lt;Vector&lt;OrganizationSummary&gt;&gt;;
+
+  // TODO: Other endpoints described at https://developer.github.com/v3/orgs/
+
+}</code></pre>
+                
+                <h3 id="midl-json-schema-definition" class="section">MIDL JSON schema definition</h3>
+                <p>The MIDL reference to a MIDL JSON schema <code>OrganizationSummary</code>,
+                which should be defined under <code>com.thoughtworks.microbuilder.tutorial.githubSdk.model</code> package,
+                or <code>src/haxe/com/thoughtworks/microbuilder/tutorial/githubSdk/model</code> directory.
+                You can run <code>sbt jsonStreamModelModules::packageName</code> in shell to check that.</p>
+                <pre><code>// src/haxe/com/thoughtworks/microbuilder/tutorial/githubSdk/model/OrganizationSummary.hx
+package com.thoughtworks.microbuilder.tutorial.githubSdk.model;
+
+@:final
+class OrganizationSummary {
+
+  public function new() {}
+
+  public var login:String;
+
+  public var id:Int;
+
+  public var url:String;
+
+  public var avatar_url:String;
+
+  public var description:String;
+
+}</code></pre>
+                <p>Now you can execute the following command to compile and package the SDK to a NPM package.</p>
+                <pre><code>sbt haxelibInstallDependencies haxe-js:packageNpm</code></pre>
+                
+                <h2 id="publish-the-sdk" class="section">Publish the SDK</h2>
+                <p>See <a href="http://www.scala-sbt.org/0.13/docs/Publishing.html">Publishing</a> in Sbt documentation for how to setup Sbt to publish your SDK.</p>
+                <p>See this <a href="https://github.com/ThoughtWorksInc/github-sdk/tree/v1.0.3">repository</a> for the complete code base.</p>
+                
+                <h2 id="dependency-settings-for-client-application" class="section">Dependency settings for Client application</h2>
+                <p>Now, create your client-side application.</p>
+                
+                <h3 id="setup-a-static-web-project" class="section">Setup a static web project</h3>
+                <p>First, execute <code>npm init .</code> in a shell, and fill fields it asked you:</p>
+                <p>```
+                $ npm init .
+                This utility will walk you through creating a package.json file.
+                It only covers the most common items, and tries to guess sensible defaults.</p>
+                <p>See <code>npm help json</code> for definitive documentation on these fields
+                and exactly what they do.</p>
+                <p>Use <code>npm install &lt;pkg&gt; --save</code> afterwards to install a package and
+                save it as a dependency in the package.json file.</p>
+                <p>Press ^C at any time to quit.
+                name: (organization-list-js)
+                version: (1.0.0)
+                description:
+                entry point: (index.js)
+                test command:
+                git repository: (https://github.com/Atry/organization-list-js.git)
+                keywords: microbuilder github
+                author: Yang Bo
+                license: (ISC) MIT
+                About to write to /Users/twer/workspace/organization-list-js/package.json:</p>
+                <p>{
+                  &quot;name&quot;: &quot;organization-list-js&quot;,
+                  &quot;version&quot;: &quot;1.0.0&quot;,
+                  &quot;description&quot;: &quot;&quot;,
+                  &quot;main&quot;: &quot;index.js&quot;,
+                  &quot;scripts&quot;: {
+                    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+                  },
+                  &quot;repository&quot;: {
+                    &quot;type&quot;: &quot;git&quot;,
+                    &quot;url&quot;: &quot;git+https://github.com/Atry/organization-list-js.git&quot;
+                  },
+                  &quot;keywords&quot;: [
+                    &quot;microbuilder&quot;,
+                    &quot;github&quot;
+                  ],
+                  &quot;author&quot;: &quot;Yang Bo&quot;,
+                  &quot;license&quot;: &quot;MIT&quot;,
+                  &quot;bugs&quot;: {
+                    &quot;url&quot;: &quot;https://github.com/Atry/organization-list-js/issues&quot;
+                  },
+                  &quot;homepage&quot;: &quot;https://github.com/Atry/organization-list-js#readme&quot;
+                }</p>
+                <p>Is this ok? (yes)
+                ```</p>
+                
+                <h3 id="add-sdk-dependencies" class="section">Add SDK dependencies</h3>
+                <p>Then, install <code>microbuilder-js</code>, <code>browser-request</code> <code>github-sdk</code> as dependencies:</p>
+                <p><code>`
+npm install --save http://central.maven.org/maven2/com/thoughtworks/microbuilder/microbuilder-js/1.0.0/microbuilder-js-1.0.0-haxe-js-npm.tgz</code>`</p>
+                <p><code>`
+npm install --save http://central.maven.org/maven2/com/thoughtworks/microbuilder/tutorial/github-sdk_2.11/1.0.3/github-sdk_2.11-1.0.3-haxe-js-npm.tgz</code>`</p>
+                <p><code>`
+npm install --save browser-request</code>`</p>
+                <p>You will use the NPM package <a href="https://www.npmjs.com/package/browser-request">browser-request</a> with Github SDK for this static web project.
+                If you are building an Node.js project, use <a href="https://www.npmjs.com/package/request">request</a> instead.</p>
+                
+                <h3 id="the-web-page" class="section">The web page</h3>
+                <p>Now we create a web page that queries the organizations of a Github user.</p>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+      function updateOrganizationList(username) {
+        // TODO: Not implemented
+      }
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    Github user name: &lt;input type=&quot;text&quot; onchange=&quot;updateOrganizationList(this.value)&quot;/&gt;
+    &lt;hr/&gt;
+    &lt;ul id=&quot;organization-list&quot;&gt;
+    &lt;/ul&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                <p>When the user input a Github user name in the input box,
+                the <code>onchange</code> event will be triggered and the browser will send a request to Github API,
+                and fill the response into <code>organization-list</code>.</p>
+                
+                <h3 id="initialize-the-sdk" class="section">Initialize the SDK</h3>
+                <p>In order to send requests, we will initialize a instance of Github&#39;s organization service,
+                which was defined in Github SDK that you created before.</p>
+                <pre><code>&lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/browser-request/index.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;request = window.returnExports;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/microbuilder-js/index.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/github-sdk/index.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+  var urlPrefix = &quot;https://api.github.com/&quot;;
+
+  var routeConfiguration = com.thoughtworks.microbuilder.tutorial.githubSdk.proxy.MicrobuilderRouteConfigurationFactory.routeConfiguration_com_thoughtworks_microbuilder_tutorial_githubSdk_rpc_IOrganizationService();
+  var outgoingJsonService = new com.thoughtworks.microbuilder.js.JsOutgoingJsonService(urlPrefix, routeConfiguration, request);
+  var organizationService = com.thoughtworks.microbuilder.tutorial.githubSdk.proxy.MicrobuilderOutgoingProxyFactory.outgoingProxy_com_thoughtworks_microbuilder_tutorial_githubSdk_rpc_IOrganizationService(outgoingJsonService);
+&lt;/script&gt;</code></pre>
+                <p>In this example, the dependency libraries are included by <code>&lt;script&gt;</code> tags.
+                Alternatively, you can use <a href="https://webpack.github.io/">webpack</a> or <a href="http://browserify.org/">browserify</a> instead.</p>
+                
+                <h3 id="use-the-sdk" class="section">Use the SDK</h3>
+                <p>As the <code>organizationService</code> has been created,
+                you can implement <code>updateOrganizationList</code> now.</p>
+                <pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+  function updateOrganizationList(username) {
+    organizationService.listUserOrganizations(username).then(function(organizations) {
+      var organizationList = document.getElementById(&quot;organization-list&quot;);
+
+      // Clear all child nodes in organization-list
+      while (organizationList.childNodes.length &gt; 0) {
+        organizationList.removeChild(organizationList.firstChild);
+      }
+
+      for (var i = 0; i &lt; organizations.length; i++) {
+        var organization = organizations[i];
+
+        var img = document.createElement(&quot;img&quot;);
+        img.src = organization.avatar_url;
+        img.width = 20;
+        img.height = 20;
+        img.title = organization.description;
+
+        var text = document.createTextNode(organization.login);
+
+        var li = document.createElement(&quot;li&quot;);
+        li.appendChild(img);
+        li.appendChild(text);
+
+        organizationList.appendChild(li);
+      }
+    });
+  }
+&lt;/script&gt;</code></pre>
+                <p><code>organizationService.listUserOrganizations</code> returns a <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>,
+                which pass the response data to the function you passed to <code>then</code> method.</p>
+                <p>Then, you use update the page according to the response data.</p>
+                <p>The example is complete now.
+                Open <code>index.html</code> in a browser, and input you Github username in the text box,
+                then you will see your Github organization list.</p>
+                <p>You can find the entire example of client-side application at <a href="https://github.com/ThoughtWorksInc/organization-list-js">organization-list-js</a>.</p>
 
             </div>
         </div>
