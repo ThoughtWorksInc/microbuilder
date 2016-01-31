@@ -126,7 +126,7 @@ Now, create your client-side application.
 
 ### Setup a Play project
 
-Fist, create the project with the help of `sbt` or `activator`. You can see the documentation from [Play Framework web site](https://www.playframework.com/).
+First, create the project with the help of `sbt` or `activator`. You can see the documentation from [Play Framework web site](https://www.playframework.com/).
 
 ### Add SDK dependencies
 
