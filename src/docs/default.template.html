@@ -553,29 +553,32 @@
       }
       .container :first-child {
         margin-top: 0; }
-      .container img {
+      .catalog p {
+        margin: 0;
+      }
+      .content img {
         max-width: 100%; }
-      .container h1, .container h2, .container h3, .container h4, .container h5, .container h6 {
+      .content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
         margin-top: 2rem;
         margin-bottom: 1rem;
         font-weight: normal;
         color: #159957; }
-      .container h1 code, .container h2 code, .container h3 code, .container h4 code, .container h5 code, .container h6 code {
+      .content h1 code, .content h2 code, .content h3 code, .content h4 code, .content h5 code, .content h6 code {
         margin-top: 2rem;
         margin-bottom: 1rem;
         font-weight: normal;
         font-size: 1.5rem;
         color: #159957; }
-      .container p {
+      .content p {
         margin-bottom: 0em; }
-      .container code {
+      .content code {
         padding: 2px 4px;
         font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
         font-size: 0.9rem;
         color: #383e41;
         background-color: #f3f6fa;
         border-radius: 0.3rem; }
-      .container pre {
+      .content pre {
         padding: 0.8rem;
         margin-top: 0;
         margin-bottom: 1rem;
@@ -585,7 +588,7 @@
         background-color: #f3f6fa;
         border: solid 1px #dce6f0;
         border-radius: 0.3rem; }
-        .container pre > code {
+        .content pre > code {
           padding: 0;
           margin: 0;
           font-size: 0.9rem;
@@ -594,18 +597,18 @@
           white-space: pre;
           background: transparent;
           border: 0; }
-      .container .highlight {
+      .content .highlight {
         margin-bottom: 1rem; }
-        .container .highlight pre {
+        .content .highlight pre {
           margin-bottom: 0;
           word-break: normal; }
-      .container .highlight pre, .container pre {
+      .content .highlight pre, .content pre {
         padding: 0.8rem;
         overflow: auto;
         font-size: 0.9rem;
         line-height: 1.45;
         border-radius: 0.3rem; }
-      .container pre code, .container pre tt {
+      .content pre code, .content pre tt {
         display: inline;
         max-width: initial;
         padding: 0;
@@ -615,63 +618,82 @@
         word-wrap: normal;
         background-color: transparent;
         border: 0; }
-        .container pre code:before, .container pre code:after, .container pre tt:before, .container pre tt:after {
+        .content pre code:before, .content pre code:after, .content pre tt:before, .content pre tt:after {
           content: normal; }
-      .container ul, .container ol {
+      .content ul, .content ol {
         margin-top: 0; }
-      .container blockquote {
+      .content blockquote {
         padding: 0 1rem;
         margin-left: 0;
         color: #819198;
         border-left: 0.3rem solid #dce6f0; }
-        .container blockquote > :first-child {
+        .content blockquote > :first-child {
           margin-top: 0; }
-        .container blockquote > :last-child {
+        .content blockquote > :last-child {
           margin-bottom: 0; }
-      .container table {
+      .content table {
         display: block;
         width: 100%;
         overflow: auto;
         word-break: normal;
         word-break: keep-all; }
-        .container table th {
+        .content table th {
           font-weight: bold; }
-        .container table th, .container table td {
+        .content table th, .content table td {
           padding: 0.5rem 1rem;
           border: 1px solid #e9ebec; }
-      .container dl {
+      .content dl {
         padding: 0; }
-        .container dl dt {
+        .content dl dt {
           padding: 0;
           margin-top: 1rem;
           font-size: 1rem;
           font-weight: bold; }
-        .container dl dd {
+        .content dl dd {
           padding: 0;
           margin-bottom: 1rem; }
-      .container hr {
+      .content hr {
         height: 2px;
         padding: 0;
         margin: 1rem 0;
         background-color: #eff0f1;
         border: 0; }
 
+        .toc .active {
+          font-weight: bold;
+        }
+        .nav {
+          overflow: scroll;
+        }
         .catalog {
+          vertical-align: top;
           display: table-cell;
           width: 30%;
+          line-height: normal;
+          background-color: #ddf0e9;
+          padding: 1.2rem;
         }
-        .catalog ul {
-          padding-left: 20px;
+        .nav ul {
           list-style-type: none;
+          padding-left: 0em;
+        }
+        .nav ul ul {
+          padding-left: 0.7em;
+          list-style-type: none;
+        }
+        .toc {
+          display: block;
+          padding-bottom: 0.3em;
         }
         .catalog a {
           color: #606C71;
         }
         .content {
+          vertical-align: top;
           display: table-cell;
-          padding: 10px 30px;
           min-width: 60em;
           max-width: 60em;
+          padding: 1.2rem;
         }
 
       @media screen and (min-width: 64em) {
@@ -838,9 +860,9 @@
         <div class="row">
             <div class="catalog" >
 
-                <ul class="nav nav-list affix">
+                <div class="nav nav-list affix">
                     @:toc.
-                </ul>
+                </div>
 
             </div>
 
