@@ -978,7 +978,21 @@
                         <li>
                           <p class="toc level1">Generating Documentation</p>
                           <ul>
-                            <li><span class="toc level2 active">Haxedoc</span></li>
+                            <li>
+                              <p class="toc level2 active">Haxedoc</p>
+                              <ul>
+                                <li><a class="toc level3" href="#requirement">Requirement</a></li>
+                                <li>
+                                  <p><a class="toc level3" href="#create-the-sdk">Create the SDK</a></p>
+                                  <ul>
+                                    <li><a class="toc level4" href="#sbt-configuration-for-sdk">Sbt configuration for SDK</a></li>
+                                    <li><a class="toc level4" href="#midl-api-definition">MIDL API definition</a></li>
+                                    <li><a class="toc level4" href="#midl-json-schema-definition">MIDL JSON schema definition</a></li>
+                                    <li><a class="toc level4" href="#generate-haxedoc">Generate Haxedoc</a></li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </li>
                             <li><a class="toc level2" href="2-swagger-ui.html">Swagger UI</a></li>
                           </ul>
                         </li>
@@ -992,7 +1006,93 @@
 
                 
                 <h1 id="haxedoc" class="title">Haxedoc</h1>
-                <p>(To be continued)</p>
+                <p>When you define some RESTful JSON API in MIDL,
+                you can generate a API reference documentation for the API.</p>
+                
+                <h2 id="requirement" class="section">Requirement</h2>
+                <p>Microbuilder requires <a href="http://haxe.org/">Haxe</a> for documentation generation,
+                and <a href="http://www.scala-sbt.org/">Sbt</a> to manage build pipeline.</p>
+                <p>You need download and install <a href="http://haxe.org/download/">Haxe 3.2.1</a> and
+                <a href="http://www.scala-sbt.org/download.html">Sbt 0.13.9</a>,
+                then setup Haxelib with the folloiwing commands:</p>
+                <pre><code>haxelib setup ~/.haxelib.d
+haxelib install hxjava
+haxelib install dox</code></pre>
+                
+                <h2 id="create-the-sdk" class="section">Create the SDK</h2>
+                
+                <h3 id="sbt-configuration-for-sdk" class="section">Sbt configuration for SDK</h3>
+                <p>Prepare an empty directory for the SDK project.
+                Then, create <code>project/plugins.sbt</code>
+                and add <a href="https://github.com/ThoughtWorksInc/sbt-microbuilder">sbt-microbuilder</a> dependency into it.</p>
+                <pre><code>// project/plugins.sbt
+addSbtPlugin(&quot;com.thoughtworks.microbuilder&quot; % &quot;sbt-microbuilder&quot; % &quot;3.0.1&quot;)</code></pre>
+                <p>There are multiple plugins in the sbt-microbuilder library for different targets or platforms.</p>
+                <p>You may want to add <code>enablePlugins</code> for some of these plugins :</p>
+                <pre><code>// build.sbt
+enablePlugins(MicrobuilderJavaSdk)
+
+enablePlugins(MicrobuilderJsSdk)
+
+organization := &quot;com.thoughtworks.microbuilder.tutorial&quot;
+
+name := &quot;github-sdk&quot;</code></pre>
+                
+                <h3 id="midl-api-definition" class="section">MIDL API definition</h3>
+                <p>By default, your MIDL is under <code>src/haxe</code> directory,
+                and the package name of your MIDL is caculated from <code>organization</code> and <code>name</code> settings in your <code>build.sbt</code>.</p>
+                <p>The interface of MIDL API should be put under <code>com.thoughtworks.microbuilder.tutorial.githubSdk.rpc</code> package,
+                or <code>src/haxe/com/thoughtworks/microbuilder/tutorial/githubSdk/rpc</code> directory.
+                You can run <code>sbt jsonStreamServiceModules::packageName</code> in shell to check that.</p>
+                <p>Now you define <a href="https://developer.github.com/v3/orgs/#list-user-organizations">List user organizations</a>
+                endpoint in a MIDL interface.</p>
+                <pre><code>// src/haxe/com/thoughtworks/microbuilder/tutorial/githubSdk/rpc/IOrganizationService.hx
+package com.thoughtworks.microbuilder.tutorial.githubSdk.rpc;
+
+import jsonStream.rpc.Future;
+import haxe.ds.Vector;
+import com.thoughtworks.microbuilder.tutorial.githubSdk.model.OrganizationSummary;
+
+@:nativeGen
+interface IOrganizationService {
+
+  @:route(&quot;GET&quot;, &quot;users/{username}/orgs&quot;)
+  function listUserOrganizations(username:String):Future&lt;Vector&lt;OrganizationSummary&gt;&gt;;
+
+  // TODO: Other endpoints described at https://developer.github.com/v3/orgs/
+
+}</code></pre>
+                
+                <h3 id="midl-json-schema-definition" class="section">MIDL JSON schema definition</h3>
+                <p>The MIDL reference to a MIDL JSON schema <code>OrganizationSummary</code>,
+                which should be defined under <code>com.thoughtworks.microbuilder.tutorial.githubSdk.model</code> package,
+                or <code>src/haxe/com/thoughtworks/microbuilder/tutorial/githubSdk/model</code> directory.
+                You can run <code>sbt jsonStreamModelModules::packageName</code> in shell to check that.</p>
+                <pre><code>// src/haxe/com/thoughtworks/microbuilder/tutorial/githubSdk/model/OrganizationSummary.hx
+package com.thoughtworks.microbuilder.tutorial.githubSdk.model;
+
+@:final
+class OrganizationSummary {
+
+  public function new() {}
+
+  public var login:String;
+
+  public var id:Int;
+
+  public var url:String;
+
+  public var avatar_url:String;
+
+  public var description:String;
+
+}</code></pre>
+                
+                <h3 id="generate-haxedoc" class="section">Generate Haxedoc</h3>
+                <p>Now you can execute the following command to generate Haxedoc</p>
+                <pre><code>sbt haxelibInstallDependencies haxe:doc</code></pre>
+                <p>Navigate to <code>target/scala-2.10/compile-dox/index.html</code> and you will the API reference.</p>
+                <p>See this <a href="https://github.com/ThoughtWorksInc/github-sdk/tree/v1.0.3">repository</a> for the complete code base.</p>
 
             </div>
         </div>
