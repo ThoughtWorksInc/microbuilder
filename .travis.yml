@@ -65,8 +65,6 @@ env:
 
 before_deploy:
   - travis_retry git clone --depth=1 $secret_git ./secret
-  - bash ./secret/git_config.sh
-  - rm -rf $HOME/.sbt/ghpages
 
 deploy:
   provider: script
