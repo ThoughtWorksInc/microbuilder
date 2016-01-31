@@ -38,7 +38,7 @@ Then, create `project/plugins.sbt`
 and add [sbt-microbuilder](https://github.com/ThoughtWorksInc/sbt-microbuilder) dependency into it.
 
     // project/plugins.sbt
-    addSbtPlugin("com.thoughtworks.microbuilder" % "sbt-microbuilder" % "3.0.1")
+    addSbtPlugin("com.thoughtworks.microbuilder" % "sbt-microbuilder" % "3.0.2")
 
 There are multiple plugins in the sbt-microbuilder library.
 `MicrobuilderJsSdk` is one of these plugins.
@@ -125,7 +125,7 @@ Now, create your client-side application.
 
 ### Setup a static web project
 
-First, execute `npm init .` in a shell, and fill fields it asked you:
+First, execute `npm init .` in a shell, and fill fields that it asked:
 
     $ npm init .
     This utility will walk you through creating a package.json file.

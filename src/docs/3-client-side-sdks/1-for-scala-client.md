@@ -38,7 +38,7 @@ Then, create `project/plugins.sbt`
 and add [sbt-microbuilder](https://github.com/ThoughtWorksInc/sbt-microbuilder) dependency into it.
 
     // project/plugins.sbt
-    addSbtPlugin("com.thoughtworks.microbuilder" % "sbt-microbuilder" % "3.0.1")
+    addSbtPlugin("com.thoughtworks.microbuilder" % "sbt-microbuilder" % "3.0.2")
 
 There are multiple plugins in the sbt-microbuilder library.
 `MicrobuilderJavaSdk` is one of these plugins.
