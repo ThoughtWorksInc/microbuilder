@@ -955,7 +955,7 @@
                   <li>Publish the JAR package of SDK (optional).</li>
                 </ol>
                 <ol class="arabic">
-                  <li>Add the dependency of SDK to your Scala application.</li>
+                  <li>Add the dependency to the SDK into your Scala application&#39;s <code>build.sbt</code>.</li>
                 </ol>
                 <ol class="arabic">
                   <li>In your Scala application, initilize the service defined in SDK and invoke methods of the service.</li>
@@ -1068,6 +1068,9 @@ libraryDependencies += &quot;com.thoughtworks.microbuilder&quot; %% &quot;microb
 
 // A library that deals with asynchronous operation.
 libraryDependencies += &quot;com.thoughtworks.each&quot; %% &quot;each&quot; % &quot;0.5.1&quot;</code></pre>
+                <p>Alternatively, You can embed the code base of SDK as a child project of the Play project,
+                if you don&#39;t want to publish the SDK.
+                See <a href="http://www.scala-sbt.org/0.13/docs/Multi-Project.html">Multi-project builds</a> for more information.</p>
                 
                 <h3 id="use-the-sdk" class="section">Use the SDK</h3>
                 <p>After the SDK dependencies are added, we can create a controller which use <code>IOrganizationService</code> sending RESTful requests.</p>
