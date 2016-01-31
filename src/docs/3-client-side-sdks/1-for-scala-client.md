@@ -28,7 +28,6 @@ then setup Haxelib with the folloiwing commands:
     haxelib setup ~/.haxelib.d
     haxelib install hxjava
     haxelib install dox
-    haxelib install hxcs
 
 ## Create the SDK
 
