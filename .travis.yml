@@ -1,0 +1,10 @@
+before_deploy:
+  - travis_retry git clone --depth=1 $secret_git ./secret
+
+deploy:
+  provider: script
+  script: ./deploy.sh
+  on:
+    jdk: openjdk7
+    condition: -e ./deploy.sh && "$HAXE_TARGET" == "java" && "$HAXE_FILE" == "haxe_2015-10-12_master_deab442.tar.gz"
+    all_branches: true
