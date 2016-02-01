@@ -35,7 +35,7 @@ You'd better always specify `@:nativeGen` for interfaces unless you want to use 
 ## `@:route`
 
 `@:route` must be put in front of a MIDL method.
-It specifies the HTTP method and URI correspond to this method.
+It specifies the HTTP method and URI corresponding to this method.
 
     @:nativeGen
     interface IMyService {
