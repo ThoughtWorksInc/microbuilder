@@ -4,14 +4,15 @@ In order to call a RESTful JSON API from a Scala application,
 you need the following steps:
 
 1. Create a Sbt project, which contains the MIDL definition of the RESTful JSON API
-  that you will call in your Scala application.
-  The project is also known as the API's SDK.
+   that you will call in your Scala application.
+   The project is also known as the API's SDK.
 2. Publish the JAR package of SDK (optional).
 3. Add the dependency to the SDK into your Scala application's `build.sbt`.
 4. In your Scala application, initilize the service defined in SDK and invoke methods of the service.
 
 In this article,
-we will create an application that queries the public organization memberships for a specified Github user.
+you will create an application
+that queries the public organization memberships for a specified Github user.
 The application is a Scala Play web project,
 and will call [Github API](https://developer.github.com/v3/) via a Microbuilder SDK,
 which is also created in this article.
