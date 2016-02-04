@@ -971,7 +971,30 @@
                         <li>
                           <p class="toc level1">Server-side stubs</p>
                           <ul>
-                            <li><a class="toc level2" href="../4-server-side-stubs/1-for-scala-server.html">For Scala server</a></li>
+                            <li>
+                              <p><a class="toc level2" href="../4-server-side-stubs/1-for-scala-server.html">For Scala server</a></p>
+                              <ul>
+                                <li><a class="toc level3" href="../4-server-side-stubs/1-for-scala-server.html#requirement">Requirement</a></li>
+                                <li>
+                                  <p><a class="toc level3" href="../4-server-side-stubs/1-for-scala-server.html#create-the-bff-sdk">Create the BFF SDK</a></p>
+                                  <ul>
+                                    <li><a class="toc level4" href="../4-server-side-stubs/1-for-scala-server.html#sbt-configuration-for-the-bff-sdk">Sbt configuration for the BFF SDK</a></li>
+                                    <li><a class="toc level4" href="../4-server-side-stubs/1-for-scala-server.html#midl-api-definition">MIDL API definition</a></li>
+                                    <li><a class="toc level4" href="../4-server-side-stubs/1-for-scala-server.html#midl-json-schema-definition">MIDL JSON schema definition</a></li>
+                                  </ul>
+                                </li>
+                                <li><a class="toc level3" href="../4-server-side-stubs/1-for-scala-server.html#publish-the-sdk">Publish the SDK</a></li>
+                                <li>
+                                  <p><a class="toc level3" href="../4-server-side-stubs/1-for-scala-server.html#dependency-settings-for-the-bff-application">Dependency settings for the BFF application</a></p>
+                                  <ul>
+                                    <li><a class="toc level4" href="../4-server-side-stubs/1-for-scala-server.html#setup-a-play-project">Setup a Play project</a></li>
+                                    <li><a class="toc level4" href="../4-server-side-stubs/1-for-scala-server.html#add-sdk-dependencies">Add SDK dependencies</a></li>
+                                    <li><a class="toc level4" href="../4-server-side-stubs/1-for-scala-server.html#implement-the-interfaces-defined-in-bff-sdk">Implement the interfaces defined in BFF SDK</a></li>
+                                    <li><a class="toc level4" href="../4-server-side-stubs/1-for-scala-server.html#configure-play-framework-to-use-the-service-implementation">Configure Play framework to use the service implementation</a></li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </li>
                             <li><a class="toc level2" href="../4-server-side-stubs/2-for-other-language-server.html">For other language server</a></li>
                           </ul>
                         </li>
@@ -1017,7 +1040,8 @@
                   <li>In your Scala application, initilize the service defined in SDK and invoke methods of the service.</li>
                 </ol>
                 <p>In this article,
-                we will create an application that queries the public organization memberships for a specified Github user.
+                you will create an application
+                that queries the public organization memberships for a specified Github user.
                 The application is a Scala Play web project,
                 and will call <a href="https://developer.github.com/v3/">Github API</a> via a Microbuilder SDK,
                 which is also created in this article.</p>

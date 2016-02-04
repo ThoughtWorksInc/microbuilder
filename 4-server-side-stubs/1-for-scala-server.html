@@ -971,7 +971,30 @@
                         <li>
                           <p class="toc level1">Server-side stubs</p>
                           <ul>
-                            <li><span class="toc level2 active">For Scala server</span></li>
+                            <li>
+                              <p class="toc level2 active">For Scala server</p>
+                              <ul>
+                                <li><a class="toc level3" href="#requirement">Requirement</a></li>
+                                <li>
+                                  <p><a class="toc level3" href="#create-the-bff-sdk">Create the BFF SDK</a></p>
+                                  <ul>
+                                    <li><a class="toc level4" href="#sbt-configuration-for-the-bff-sdk">Sbt configuration for the BFF SDK</a></li>
+                                    <li><a class="toc level4" href="#midl-api-definition">MIDL API definition</a></li>
+                                    <li><a class="toc level4" href="#midl-json-schema-definition">MIDL JSON schema definition</a></li>
+                                  </ul>
+                                </li>
+                                <li><a class="toc level3" href="#publish-the-sdk">Publish the SDK</a></li>
+                                <li>
+                                  <p><a class="toc level3" href="#dependency-settings-for-the-bff-application">Dependency settings for the BFF application</a></p>
+                                  <ul>
+                                    <li><a class="toc level4" href="#setup-a-play-project">Setup a Play project</a></li>
+                                    <li><a class="toc level4" href="#add-sdk-dependencies">Add SDK dependencies</a></li>
+                                    <li><a class="toc level4" href="#implement-the-interfaces-defined-in-bff-sdk">Implement the interfaces defined in BFF SDK</a></li>
+                                    <li><a class="toc level4" href="#configure-play-framework-to-use-the-service-implementation">Configure Play framework to use the service implementation</a></li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </li>
                             <li><a class="toc level2" href="2-for-other-language-server.html">For other language server</a></li>
                           </ul>
                         </li>
@@ -1006,7 +1029,233 @@
 
                 
                 <h1 id="for-scala-server" class="title">For Scala server</h1>
-                <p>(To be continued)</p>
+                <p>Microbuilder generates stub implementations of a RESTful JSON server
+                for <a href="https://www.scala-lang.org/">Scala</a> / <a href="https://www.playframework.com/">Play</a> services,
+                once you provided MIDL definition for the API.</p>
+                <p>You can create your service in the following steps</p>
+                <ol class="arabic">
+                  <li>Create a Sbt project, which contains the MIDL definition of the RESTful JSON API
+                  that you will implement in your Play application.
+                  The project is also known as the API&#39;s SDK.</li>
+                  <li>Publish the JAR package of SDK (optional).</li>
+                  <li>Add the dependency to the SDK into your Play application&#39;s <code>build.sbt</code>.</li>
+                  <li>In your Play application, implement interfaces defined in SDK,
+                  and configure Play framework to use your interfaces.</li>
+                </ol>
+                <p>In this article,
+                you will create a <a href="https://www.thoughtworks.com/radar/techniques/bff-backend-for-frontends">BFF</a> service that queries the public organization memberships for a specified Github user,
+                and then strip out unnecessary data from the original response.
+                Finally the BFF service returns a compact data format of these organizations.</p>
+                
+                <h2 id="requirement" class="section">Requirement</h2>
+                <p>Microbuilder requires <a href="http://haxe.org/">Haxe</a> for code generation,
+                and <a href="http://www.scala-sbt.org/">Sbt</a> to manage build pipeline.</p>
+                <p>You need download and install <a href="http://haxe.org/download/">Haxe 3.2.1</a> and
+                <a href="http://www.scala-sbt.org/download.html">Sbt 0.13.9</a>,
+                then setup Haxelib with the folloiwing commands:</p>
+                <pre><code>haxelib setup ~/.haxelib.d
+haxelib install hxjava
+haxelib install dox</code></pre>
+                
+                <h2 id="create-the-bff-sdk" class="section">Create the BFF SDK</h2>
+                
+                <h3 id="sbt-configuration-for-the-bff-sdk" class="section">Sbt configuration for the BFF SDK</h3>
+                <p>Prepare an empty directory for the BFF SDK project.
+                Then, create <code>project/plugins.sbt</code>
+                and add <a href="https://github.com/ThoughtWorksInc/sbt-microbuilder">sbt-microbuilder</a> dependency into it.</p>
+                <pre><code>// project/plugins.sbt
+addSbtPlugin(&quot;com.thoughtworks.microbuilder&quot; % &quot;sbt-microbuilder&quot; % &quot;3.0.2&quot;)</code></pre>
+                <p>There are multiple plugins in the sbt-microbuilder library.
+                <code>MicrobuilderJavaSdk</code> is one of these plugins.
+                The plugin will add necessary settings for a SDK project for JVM target.</p>
+                <p>So you edit build.sbt, and add <code>enablePlugins(MicrobuilderJavaSdk)</code>:</p>
+                <pre><code>// build.sbt
+enablePlugins(MicrobuilderJavaSdk)
+
+organization := &quot;com.thoughtworks.microbuilder.tutorial&quot;
+
+name := &quot;organization-bff-sdk&quot;</code></pre>
+                
+                <h3 id="midl-api-definition" class="section">MIDL API definition</h3>
+                <p>By default, your MIDL is under <code>src/haxe</code> directory,
+                and the package name of your MIDL is caculated from <code>organization</code> and <code>name</code> settings in your <code>build.sbt</code>.</p>
+                <p>The interface of MIDL API should be put under <code>com.thoughtworks.microbuilder.tutorial.organizationBffSdk.rpc</code> package,
+                or <code>src/haxe/com/thoughtworks/microbuilder/tutorial/organizationBffSdk/rpc</code> directory.
+                You can run <code>sbt jsonStreamServiceModules::packageName</code> in shell to check that.</p>
+                <p>Now you define <a href="https://developer.github.com/v3/orgs/#list-user-organizations">List user organizations</a>
+                endpoint in a MIDL interface.</p>
+                <pre><code>// src/haxe/com/thoughtworks/microbuilder/tutorial/organizationBffSdk/rpc/IOrganizationService.hx
+package com.thoughtworks.microbuilder.tutorial.organizationBffSdk.rpc;
+
+import jsonStream.rpc.Future;
+import haxe.ds.Vector;
+import com.thoughtworks.microbuilder.tutorial.organizationBffSdk.model.BffOrganizationList;
+
+@:nativeGen
+interface IOrganizationBffService {
+
+  @:route(&quot;GET&quot;, &quot;users/{username}/orgs&quot;)
+  function listUserOrganizations(username:String):Future&lt;BffOrganizationList&gt;;
+
+  // TODO: Other endpoints described at https://developer.github.com/v3/orgs/
+
+}</code></pre>
+                
+                <h3 id="midl-json-schema-definition" class="section">MIDL JSON schema definition</h3>
+                <p>The MIDL reference to a MIDL JSON schema <code>BffOrganizationList</code>,
+                which should be defined under <code>com.thoughtworks.microbuilder.tutorial.organizationBffSdk.model</code> package,
+                or <code>src/haxe/com/thoughtworks/microbuilder/tutorial/organizationBffSdk/model</code> directory.
+                You can run <code>sbt jsonStreamModelModules::packageName</code> in shell to check that.</p>
+                <pre><code>// src/haxe/com/thoughtworks/microbuilder/tutorial/organizationBffSdk/model/BffOrganizationList.hx
+package com.thoughtworks.microbuilder.tutorial.organizationBffSdk.model;
+
+import haxe.ds.Vector;
+
+@:final
+class BffOrganization {
+
+  public function new() {}
+
+  public var name:String;
+
+  public var iconUrl:String;
+
+  public var description:String;
+
+}
+
+@:final
+class BffOrganizationList {
+
+  public function new() {}
+
+  public var name:String;
+
+  public var organizations:Vector&lt;BffOrganization&gt;;
+
+}</code></pre>
+                <p>Now you can execute the following command to compile and package the SDK to a JAR.</p>
+                <pre><code>sbt haxelibInstallDependencies package</code></pre>
+                
+                <h2 id="publish-the-sdk" class="section">Publish the SDK</h2>
+                <p>See <a href="http://www.scala-sbt.org/0.13/docs/Publishing.html">Publishing</a> in Sbt documentation for how to setup Sbt to publish your SDK.</p>
+                <p>See this <a href="https://github.com/ThoughtWorksInc/organization-bff-sdk/tree/v1.0.0">repository</a> for the complete code base.</p>
+                
+                <h2 id="dependency-settings-for-the-bff-application" class="section">Dependency settings for the BFF application</h2>
+                <p>Now, create your BFF application.</p>
+                
+                <h3 id="setup-a-play-project" class="section">Setup a Play project</h3>
+                <p>First, create the project with the help of <code>sbt</code> or <code>activator</code>. You can see the documentation from <a href="https://www.playframework.com/">Play Framework web site</a>.</p>
+                
+                <h3 id="add-sdk-dependencies" class="section">Add SDK dependencies</h3>
+                <p>Then, add the SDK dependencies to your <code>build.sbt</code>:</p>
+                <pre><code>// Dependency to the BFF SDK you just created.
+libraryDependencies += &quot;com.thoughtworks.microbuilder.tutorial&quot; %% &quot;organization-bff-sdk&quot; % &quot;1.0.0&quot;
+
+// Dependency to the Github SDK you created before.
+libraryDependencies += &quot;com.thoughtworks.microbuilder.tutorial&quot; %% &quot;github-sdk&quot; % &quot;1.0.2&quot;
+
+// Runtime library to integrate SDK into a Play application.
+libraryDependencies += &quot;com.thoughtworks.microbuilder&quot; %% &quot;microbuilder-play&quot; % &quot;4.0.0&quot;
+
+// A library that deals with asynchronous operation.
+libraryDependencies += &quot;com.thoughtworks.each&quot; %% &quot;each&quot; % &quot;0.5.1&quot;</code></pre>
+                <p>Alternatively, You can embed the code base of BFF SDK as a child project of the Play project,
+                if you don&#39;t want to publish the BFF SDK.
+                See <a href="http://www.scala-sbt.org/0.13/docs/Multi-Project.html">Multi-project builds</a> for more information.</p>
+                <p>Note that the BFF server will use server-side BFF SDK, and client-side Github SDK.
+                The latter SDK was created in <a href="../client-side-sdks/1-for-scala-client.html">Client-side SDKs</a> chapter.</p>
+                
+                <h3 id="implement-the-interfaces-defined-in-bff-sdk" class="section">Implement the interfaces defined in BFF SDK</h3>
+                <p>Now you will implement the interfaces in BFF SDK.
+                Each method in an interface represents an endpoint of the server.</p>
+                <pre><code>// app/com/thoughtworks/microbuilder/tutorial/organizationBff/OrganizationBffService.scala
+package com.thoughtworks.microbuilder.tutorial.organizationBff
+
+import com.thoughtworks.microbuilder.tutorial.githubSdk.model.OrganizationSummary
+import com.thoughtworks.microbuilder.tutorial.githubSdk.rpc.IOrganizationService
+import com.thoughtworks.microbuilder.tutorial.organizationBffSdk.model.{BffOrganization, BffOrganizationList}
+import com.thoughtworks.microbuilder.tutorial.organizationBffSdk.rpc.IOrganizationBffService
+import scalaz.std.scalaFuture._
+
+import scala.concurrent.{ExecutionContext, Future}
+import com.thoughtworks.each.Monadic._
+import com.thoughtworks.microbuilder.play.Implicits._
+
+class OrganizationBffService(organizationService: IOrganizationService)(implicit ec: ExecutionContext) extends IOrganizationBffService {
+  override def listUserOrganizations(username: String) = throwableMonadic[Future] {
+    val response = new BffOrganizationList
+    response.name = username
+    val githubOrganizationsFuture: Future[Array[OrganizationSummary]] = organizationService.listUserOrganizations(username)
+    val githubOrganizations = githubOrganizationsFuture.each
+    response.organizations = for {
+      githubOrganization &amp;lt;- githubOrganizations
+    } yield {
+      val bffOrganization = new BffOrganization
+      bffOrganization.description = githubOrganization.description
+      bffOrganization.iconUrl = githubOrganization.avatar_url
+      bffOrganization.name = githubOrganization.login
+      bffOrganization
+    }
+    response
+  }
+}</code></pre>
+                <p>In this example,
+                the BFF server send a request to Github API for organization list of a user,
+                then it fill create a <code>BffOrganizationList</code>,
+                and fill it with the response from Github API.</p>
+                
+                <h3 id="configure-play-framework-to-use-the-service-implementation" class="section">Configure Play framework to use the service implementation</h3>
+                <p>Microbuilder provides a <code>RpcController</code>,
+                which forwards HTTP request to your service implementation.</p>
+                <pre><code># conf/routes
+GET        /*relatedUrl        com.thoughtworks.microbuilder.play.RpcController.rpc(relatedUrl:String)</code></pre>
+                <p>Then, create the loader for this Play application.</p>
+                <pre><code>package com.thoughtworks.microbuilder.tutorial.organizationBff
+
+import com.thoughtworks.microbuilder.play.{RpcEntry, PlayOutgoingJsonService, RpcController}
+import com.thoughtworks.microbuilder.tutorial.githubSdk.proxy.MicrobuilderOutgoingProxyFactory._
+import com.thoughtworks.microbuilder.tutorial.githubSdk.proxy.MicrobuilderRouteConfigurationFactory._
+import com.thoughtworks.microbuilder.tutorial.organizationBffSdk.proxy.MicrobuilderIncomingProxyFactory._
+import com.thoughtworks.microbuilder.tutorial.organizationBffSdk.proxy.MicrobuilderRouteConfigurationFactory._
+import com.thoughtworks.microbuilder.tutorial.githubSdk.rpc.IOrganizationService
+import com.thoughtworks.microbuilder.tutorial.organizationBffSdk.rpc.IOrganizationBffService
+import play.api.libs.ws.ning.NingWSComponents
+import play.api.{BuiltInComponentsFromContext, Application, ApplicationLoader}
+import play.api.ApplicationLoader.Context
+import router.Routes
+
+class Loader extends ApplicationLoader {
+  override def load(context: Context): Application = {
+
+  val components = new BuiltInComponentsFromContext(context) with NingWSComponents {
+    implicit def executionContext = actorSystem.dispatcher
+
+    lazy val organizationService = PlayOutgoingJsonService.newProxy[IOrganizationService](&quot;https://api.github.com/&quot;, wsApi)
+
+    lazy val bffService = new OrganizationBffService(organizationService)
+
+    lazy val rpcController = new RpcController(Seq(RpcEntry.implementedBy[IOrganizationBffService](bffService)))
+
+    override lazy val router = new Routes(httpErrorHandler, rpcController)
+  }
+
+  components.application
+  }
+}</code></pre>
+                <p>The <code>routes</code> you just created requires a <code>RpcController</code> instance.
+                So you created the <code>RpcController</code> instance,
+                and set the underlying service implementation <code>OrganizationBffService</code> for the <code>RpcController</code> instance.</p>
+                <p>And set-up the entry point of the application in <code>conf/appication.conf</code>:</p>
+                <pre><code>play.application.loader = com.thoughtworks.microbuilder.tutorial.organizationBff.Loader</code></pre>
+                <p>Now you built the entire application.
+                You can run it from Sbt</p>
+                <p><code>`
+sbt run</code>`</p>
+                <p>Then visit http://localhost:9000/users/your-user-name/orgs .
+                You will see a JSON of your Github organization list.
+                、
+                You can find the entire example of server-side BFF at <a href="https://github.com/ThoughtWorksInc/organization-bff">organization-bff</a>.</p>
 
             </div>
         </div>
