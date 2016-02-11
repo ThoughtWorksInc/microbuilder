@@ -4,16 +4,16 @@ In order to call a RESTful JSON API from a JavaScript application,
 you need the following steps:
 
 1. Create a Sbt project, which contains the MIDL definition of the RESTful JSON API
-  that you will call in your JavaScript application.
-  The project is also known as the API's SDK.
+   that you will call in your JavaScript application.
+   The project is also known as the API's SDK.
 2. Publish the NPM package of SDK.
 3. Add the dependency to the SDK into your JavaScript application's `package.json`.
 4. In your JavaScript application, initilize the service defined in SDK and invoke methods of the service.
 
 In this article,
 we will create an application that queries the public organization memberships for a specified Github user.
-The application is a static web project,
-and will call [Github API](https://developer.github.com/v3/) via a Microbuilder SDK,
+The application is a static web project.
+It will call [Github API](https://developer.github.com/v3/) via a Microbuilder SDK,
 which is also created in this article.
 
 ## Requirement
@@ -119,11 +119,9 @@ See [Publishing](http://www.scala-sbt.org/0.13/docs/Publishing.html) in Sbt docu
 
 See this [repository](https://github.com/ThoughtWorksInc/github-sdk/tree/v1.0.3) for the complete code base.
 
-## Dependency settings for Client application
+## Setup your static web project
 
-Now, create your client-side application.
-
-### Setup a static web project
+Now, create the client-side application.
 
 First, execute `npm init .` in a shell, and fill fields that it asked:
 
@@ -176,26 +174,20 @@ First, execute `npm init .` in a shell, and fill fields that it asked:
 
     Is this ok? (yes)
 
-### Add SDK dependencies
+## Add SDK dependencies
 
 Then, install `microbuilder-js`, `browser-request` `github-sdk` as dependencies:
 
-```
-npm install --save http://central.maven.org/maven2/com/thoughtworks/microbuilder/microbuilder-js/1.0.0/microbuilder-js-1.0.0-haxe-js-npm.tgz
-```
+    npm install --save http://central.maven.org/maven2/com/thoughtworks/microbuilder/microbuilder-js/1.0.0/microbuilder-js-1.0.0-haxe-js-npm.tgz
 
-```
-npm install --save http://central.maven.org/maven2/com/thoughtworks/microbuilder/tutorial/github-sdk_2.11/1.0.3/github-sdk_2.11-1.0.3-haxe-js-npm.tgz
-```
+    npm install --save http://central.maven.org/maven2/com/thoughtworks/microbuilder/tutorial/github-sdk_2.11/1.0.3/github-sdk_2.11-1.0.3-haxe-js-npm.tgz
 
-```
-npm install --save browser-request
-```
+    npm install --save browser-request
 
 You will use the NPM package [browser-request](https://www.npmjs.com/package/browser-request) with Github SDK for this static web project.
 If you are building an Node.js project, use [request](https://www.npmjs.com/package/request) instead.
 
-### The web page
+## The web page
 
 Now we create a web page that queries the organizations of a Github user.
 
@@ -220,7 +212,7 @@ When the user input a Github user name in the input box,
 the `onchange` event will be triggered and the browser will send a request to Github API,
 and fill the response into `organization-list`.
 
-### Initialize the SDK
+## Initialize the SDK
 
 In order to send requests, we will initialize a instance of Github's organization service,
 which was defined in Github SDK that you created before.
@@ -240,7 +232,7 @@ which was defined in Github SDK that you created before.
 In this example, the dependency libraries are included by `<script>` tags.
 Alternatively, you can use [webpack](https://webpack.github.io/) or [browserify](http://browserify.org/) instead.
 
-### Use the SDK
+## Use the SDK
 
 As the `organizationService` has been created,
 you can implement `updateOrganizationList` now.

@@ -13,8 +13,8 @@ you need the following steps:
 In this article,
 you will create an application
 that queries the public organization memberships for a specified Github user.
-The application is a Scala Play web project,
-and will call [Github API](https://developer.github.com/v3/) via a Microbuilder SDK,
+The application is a Scala Play web project.
+It will call [Github API](https://developer.github.com/v3/) via a Microbuilder SDK,
 which is also created in this article.
 
 ## Requirement
@@ -120,15 +120,13 @@ See [Publishing](http://www.scala-sbt.org/0.13/docs/Publishing.html) in Sbt docu
 
 See this [repository](https://github.com/ThoughtWorksInc/github-sdk/tree/v1.0.2) for the complete code base.
 
-## Dependency settings for Client application
+## Setup a Play project
 
 Now, create your client-side application.
 
-### Setup a Play project
-
 First, create the project with the help of `sbt` or `activator`. You can see the documentation from [Play Framework web site](https://www.playframework.com/).
 
-### Add SDK dependencies
+## Add SDK dependencies
 
 Then, add the SDK dependencies to your `build.sbt`:
 
@@ -145,8 +143,7 @@ Alternatively, You can embed the code base of SDK as a child project of the Play
 if you don't want to publish the SDK.
 See [Multi-project builds](http://www.scala-sbt.org/0.13/docs/Multi-Project.html) for more information.
 
-
-### Use the SDK
+## Use the SDK
 
 After the SDK dependencies are added, we can create a controller which use `IOrganizationService` sending RESTful requests.
 
@@ -180,7 +177,7 @@ then use [Scalaz](https://scalaz.github.io/scalaz) and [Each](https://github.com
 Then, you pass the result to a Twirl template `renderOrganizationList` to render the HTML,
 which will be created later in this article.
 
-### Other Play configurations
+## Other Play configurations
 
 In order to use the `OrganizationListController`,
 add corresponding Play's routes configuration for it.
@@ -208,7 +205,7 @@ Then, create the Twirl template `renderOrganizationList` used by `OrganizationLi
 
 This template renders data got from Github API.
 
-### Initialize the SDK
+## Initialize the SDK
 
 As we defined before,
 the `organizationService:IOrganizationService` is a parameter of `OrganizationListController`,
@@ -255,9 +252,7 @@ You must import `MicrobuilderOutgoingProxyFactory._` and `MicrobuilderRouteConfi
 Now you built the entire application.
 You can run it from Sbt
 
-```
-sbt run
-```
+    sbt run
 
 Then visit http://localhost:9000/users/your-user-name to see your Github organization list.
 

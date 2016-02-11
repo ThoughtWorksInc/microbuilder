@@ -59,3 +59,44 @@ and generate client-side SDK and documentation for it,
 so that other applications will be easy to communicate with the legacy service.
 However, you will not generate server-side stubs
 because you already have a service implementation before.
+
+## Documentation and other links
+
+Microbuilder is separated into several libraries,
+each library has its own documentation and distribution.
+
+### json-stream-core
+
+Universal Serialization Framework for JSON
+
+* [Github](https://github.com/ThoughtWorksInc/json-stream-core)
+* [API reference](https://oss.sonatype.org/service/local/repositories/snapshots/archive/com/thoughtworks/microbuilder/json-stream-core/3.0.3-SNAPSHOT/json-stream-core-3.0.3-SNAPSHOT-javadoc.jar/!/jsonStream/index.html)
+* [Haxelib](http://lib.haxe.org/p/json-stream-core)
+* [Maven](https://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.thoughtworks.microbuilder%22%20AND%20a%3A%22json-stream-core%22)
+
+### microbuilder-core
+
+Microbuilder runtime and tools for all languages
+
+* [Github](https://github.com/ThoughtWorksInc/microbuilder-core)
+* [API reference](https://oss.sonatype.org/service/local/repositories/snapshots/archive/com/thoughtworks/microbuilder/microbuilder-core/3.0.3-SNAPSHOT/microbuilder-core-3.0.3-SNAPSHOT-javadoc.jar/!/com/thoughtworks/microbuilder/core/index.html)
+* [Haxelib](http://lib.haxe.org/p/microbuilder-core)
+* [Maven](https://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.thoughtworks.microbuilder%22%20AND%20a%3A%22microbuilder-core%22)
+
+### microbuilder-js
+
+Microbuilder runtime for JavaScript
+
+* [Github](https://github.com/ThoughtWorksInc/microbuilder-js)
+* [API reference](https://oss.sonatype.org/service/local/repositories/snapshots/archive/com/thoughtworks/microbuilder/microbuilder-js/2.0.2-SNAPSHOT/microbuilder-js-2.0.2-SNAPSHOT-javadoc.jar/!/com/thoughtworks/microbuilder/js/index.html)
+* [Haxelib](http://lib.haxe.org/p/microbuilder-js)
+* [NPM package](http://central.maven.org/maven2/com/thoughtworks/microbuilder/microbuilder-js/2.0.1/microbuilder-js-2.0.1-haxe-js-npm.tgz)
+
+### microbuilder-play
+
+Microbuilder runtime for Scala and Play framework
+
+* [Github](https://github.com/ThoughtWorksInc/microbuilder-play)
+* [API reference](https://oss.sonatype.org/service/local/repositories/releases/archive/com/thoughtworks/microbuilder/microbuilder-play_2.10/4.0.0/microbuilder-play_2.10-4.0.0-javadoc.jar/!/com/thoughtworks/microbuilder/play/package.html)
+* [Maven (For Scala 2.10)](https://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.thoughtworks.microbuilder%22%20AND%20a%3A%22microbuilder-play_2.10%22)
+* [Maven (For Scala 2.11)](https://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.thoughtworks.microbuilder%22%20AND%20a%3A%22microbuilder-play_2.11%22)

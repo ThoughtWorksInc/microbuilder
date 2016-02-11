@@ -12,7 +12,7 @@ You can create your service in the following steps
 2. Publish the JAR package of SDK (optional).
 3. Add the dependency to the SDK into your Play application's `build.sbt`.
 4. In your Play application, implement interfaces defined in SDK,
-   and configure Play framework to use your interfaces.
+   and configure Play framework to route to your interfaces.
 
 In this article,
 you will create a [BFF](https://www.thoughtworks.com/radar/techniques/bff-backend-for-frontends) service that queries the public organization memberships for a specified Github user,
@@ -204,7 +204,7 @@ the BFF server send a request to Github API for organization list of a user,
 then it fill create a `BffOrganizationList`,
 and fill it with the response from Github API.
 
-### Configure Play framework to use the service implementation
+### Configure Play framework to route to the service implementation
 
 Microbuilder provides a `RpcController`,
 which forwards HTTP request to your service implementation.
