@@ -868,6 +868,15 @@
                           <ul>
                             <li><a class="toc level2" href="../1-overview.html#motive">Motive</a></li>
                             <li><a class="toc level2" href="../1-overview.html#how-microbuilder-works">How Microbuilder works</a></li>
+                            <li>
+                              <p><a class="toc level2" href="../1-overview.html#documentation-and-other-links">Documentation and other links</a></p>
+                              <ul>
+                                <li><a class="toc level3" href="../1-overview.html#json-stream-core">json-stream-core</a></li>
+                                <li><a class="toc level3" href="../1-overview.html#microbuilder-core">microbuilder-core</a></li>
+                                <li><a class="toc level3" href="../1-overview.html#microbuilder-js">microbuilder-js</a></li>
+                                <li><a class="toc level3" href="../1-overview.html#microbuilder-play">microbuilder-play</a></li>
+                              </ul>
+                            </li>
                           </ul>
                         </li>
                         <li>
@@ -928,16 +937,11 @@
                                   </ul>
                                 </li>
                                 <li><a class="toc level3" href="1-for-scala-client.html#publish-the-sdk">Publish the SDK</a></li>
-                                <li>
-                                  <p><a class="toc level3" href="1-for-scala-client.html#dependency-settings-for-client-application">Dependency settings for Client application</a></p>
-                                  <ul>
-                                    <li><a class="toc level4" href="1-for-scala-client.html#setup-a-play-project">Setup a Play project</a></li>
-                                    <li><a class="toc level4" href="1-for-scala-client.html#add-sdk-dependencies">Add SDK dependencies</a></li>
-                                    <li><a class="toc level4" href="1-for-scala-client.html#use-the-sdk">Use the SDK</a></li>
-                                    <li><a class="toc level4" href="1-for-scala-client.html#other-play-configurations">Other Play configurations</a></li>
-                                    <li><a class="toc level4" href="1-for-scala-client.html#initialize-the-sdk">Initialize the SDK</a></li>
-                                  </ul>
-                                </li>
+                                <li><a class="toc level3" href="1-for-scala-client.html#setup-a-play-project">Setup a Play project</a></li>
+                                <li><a class="toc level3" href="1-for-scala-client.html#add-sdk-dependencies">Add SDK dependencies</a></li>
+                                <li><a class="toc level3" href="1-for-scala-client.html#use-the-sdk">Use the SDK</a></li>
+                                <li><a class="toc level3" href="1-for-scala-client.html#other-play-configurations">Other Play configurations</a></li>
+                                <li><a class="toc level3" href="1-for-scala-client.html#initialize-the-sdk">Initialize the SDK</a></li>
                               </ul>
                             </li>
                             <li>
@@ -953,19 +957,34 @@
                                   </ul>
                                 </li>
                                 <li><a class="toc level3" href="2-for-javascript-client.html#publish-the-sdk">Publish the SDK</a></li>
+                                <li><a class="toc level3" href="2-for-javascript-client.html#setup-your-static-web-project">Setup your static web project</a></li>
+                                <li><a class="toc level3" href="2-for-javascript-client.html#add-sdk-dependencies">Add SDK dependencies</a></li>
+                                <li><a class="toc level3" href="2-for-javascript-client.html#the-web-page">The web page</a></li>
+                                <li><a class="toc level3" href="2-for-javascript-client.html#initialize-the-sdk">Initialize the SDK</a></li>
+                                <li><a class="toc level3" href="2-for-javascript-client.html#use-the-sdk">Use the SDK</a></li>
+                              </ul>
+                            </li>
+                            <li>
+                              <p class="toc level2 active">For Haxe client</p>
+                              <ul>
+                                <li><a class="toc level3" href="#requirement">Requirement</a></li>
                                 <li>
-                                  <p><a class="toc level3" href="2-for-javascript-client.html#dependency-settings-for-client-application">Dependency settings for Client application</a></p>
+                                  <p><a class="toc level3" href="#create-the-sdk">Create the SDK</a></p>
                                   <ul>
-                                    <li><a class="toc level4" href="2-for-javascript-client.html#setup-a-static-web-project">Setup a static web project</a></li>
-                                    <li><a class="toc level4" href="2-for-javascript-client.html#add-sdk-dependencies">Add SDK dependencies</a></li>
-                                    <li><a class="toc level4" href="2-for-javascript-client.html#the-web-page">The web page</a></li>
-                                    <li><a class="toc level4" href="2-for-javascript-client.html#initialize-the-sdk">Initialize the SDK</a></li>
-                                    <li><a class="toc level4" href="2-for-javascript-client.html#use-the-sdk">Use the SDK</a></li>
+                                    <li><a class="toc level4" href="#sbt-configuration-for-sdk">Sbt configuration for SDK</a></li>
+                                    <li><a class="toc level4" href="#midl-api-definition">MIDL API definition</a></li>
+                                    <li><a class="toc level4" href="#midl-json-schema-definition">MIDL JSON schema definition</a></li>
+                                  </ul>
+                                </li>
+                                <li>
+                                  <p><a class="toc level3" href="#publish-the-sdk-to-haxelib">Publish the SDK to Haxelib</a></p>
+                                  <ul>
+                                    <li><a class="toc level4" href="#setup-a-command-line-program">Setup a command-line program</a></li>
+                                    <li><a class="toc level4" href="#the-source-file-of-the-command-line-program">The source file of the command-line program</a></li>
                                   </ul>
                                 </li>
                               </ul>
                             </li>
-                            <li><span class="toc level2 active">For other language client</span></li>
                           </ul>
                         </li>
                         <li>
@@ -990,7 +1009,7 @@
                                     <li><a class="toc level4" href="../4-server-side-stubs/1-for-scala-server.html#setup-a-play-project">Setup a Play project</a></li>
                                     <li><a class="toc level4" href="../4-server-side-stubs/1-for-scala-server.html#add-sdk-dependencies">Add SDK dependencies</a></li>
                                     <li><a class="toc level4" href="../4-server-side-stubs/1-for-scala-server.html#implement-the-interfaces-defined-in-bff-sdk">Implement the interfaces defined in BFF SDK</a></li>
-                                    <li><a class="toc level4" href="../4-server-side-stubs/1-for-scala-server.html#configure-play-framework-to-use-the-service-implementation">Configure Play framework to use the service implementation</a></li>
+                                    <li><a class="toc level4" href="../4-server-side-stubs/1-for-scala-server.html#configure-play-framework-to-route-to-the-service-implementation">Configure Play framework to route to the service implementation</a></li>
                                   </ul>
                                 </li>
                               </ul>
@@ -1028,8 +1047,183 @@
             <div class="content" id="top">
 
                 
-                <h1 id="for-other-language-client" class="title">For other language client</h1>
-                <p>(To be continued)</p>
+                <h1 id="for-haxe-client" class="title">For Haxe client</h1>
+                <p>In order to call a RESTful JSON API from a Haxe application,
+                you need the following steps:</p>
+                <ol class="arabic">
+                  <li>Create a Sbt project, which contains the MIDL definition of the RESTful JSON API
+                  that you will call in your JavaScript application.
+                  The project is also known as the API&#39;s SDK.</li>
+                  <li>Publish the package of SDK to Haxelib or install it locally.</li>
+                  <li>Add the dependency to the SDK into your client application build configuration.</li>
+                  <li>In your client application, initilize the service defined in SDK and invoke methods of the service.</li>
+                </ol>
+                <p>In this article,
+                we will create a command-line program that queries the public organization memberships for a specified Github user.
+                It will call <a href="https://developer.github.com/v3/">Github API</a> via a Microbuilder SDK,
+                which is also created in this article.</p>
+                
+                <h2 id="requirement" class="section">Requirement</h2>
+                <p>Microbuilder requires <a href="http://haxe.org/">Haxe</a> for code generation,
+                and <a href="http://www.scala-sbt.org/">Sbt</a> to manage build pipeline.</p>
+                <p>You need download and install <a href="http://haxe.org/download/">Haxe 3.2.1</a> and
+                <a href="http://www.scala-sbt.org/download.html">Sbt 0.13.9</a>,
+                then setup Haxelib with the folloiwing commands:</p>
+                <pre><code>haxelib setup ~/.haxelib.d
+haxelib install hxjava
+haxelib install dox</code></pre>
+                
+                <h2 id="create-the-sdk" class="section">Create the SDK</h2>
+                
+                <h3 id="sbt-configuration-for-sdk" class="section">Sbt configuration for SDK</h3>
+                <p>Prepare an empty directory for the SDK project.
+                Then, create <code>project/plugins.sbt</code>
+                and add <a href="https://github.com/ThoughtWorksInc/sbt-microbuilder">sbt-microbuilder</a> dependency into it.</p>
+                <pre><code>// project/plugins.sbt
+addSbtPlugin(&quot;com.thoughtworks.microbuilder&quot; % &quot;sbt-microbuilder&quot; % &quot;4.0.6&quot;)</code></pre>
+                <p>There are multiple plugins in the sbt-microbuilder library.
+                <code>MicrobuilderCommon</code> plugin provides the settings for a Haxe SDK library.
+                The <code>MicrobuilderCommon</code> will be automatically enabled once you enable other plugins in sbt-microbuilder.</p>
+                <p>So you edit build.sbt, and add <code>enablePlugins(MicrobuilderJsSdk)</code> or <code>enablePlugins(MicrobuilderJavaSdk)</code> :</p>
+                <pre><code>// build.sbt
+enablePlugins(MicrobuilderJsSdk)
+
+organization := &quot;com.thoughtworks.microbuilder.tutorial&quot;
+
+name := &quot;github-sdk&quot;</code></pre>
+                
+                <h3 id="midl-api-definition" class="section">MIDL API definition</h3>
+                <p>By default, your MIDL is under <code>src/haxe</code> directory,
+                and the package name of your MIDL is caculated from <code>organization</code> and <code>name</code> settings in your <code>build.sbt</code>.</p>
+                <p>The interface of MIDL API should be put under <code>com.thoughtworks.microbuilder.tutorial.githubSdk.rpc</code> package,
+                or <code>src/haxe/com/thoughtworks/microbuilder/tutorial/githubSdk/rpc</code> directory.
+                You can run <code>sbt jsonStreamServiceModules::packageName</code> in shell to check that.</p>
+                <p>Now you define <a href="https://developer.github.com/v3/orgs/#list-user-organizations">List user organizations</a>
+                endpoint in a MIDL interface.</p>
+                <pre><code>// src/haxe/com/thoughtworks/microbuilder/tutorial/githubSdk/rpc/IOrganizationService.hx
+package com.thoughtworks.microbuilder.tutorial.githubSdk.rpc;
+
+import jsonStream.rpc.Future;
+import haxe.ds.Vector;
+import com.thoughtworks.microbuilder.tutorial.githubSdk.model.OrganizationSummary;
+
+@:nativeGen
+interface IOrganizationService {
+
+  @:route(&quot;GET&quot;, &quot;users/{username}/orgs&quot;)
+  function listUserOrganizations(username:String):Future&lt;Vector&lt;OrganizationSummary&gt;&gt;;
+
+  // TODO: Other endpoints described at https://developer.github.com/v3/orgs/
+
+}</code></pre>
+                
+                <h3 id="midl-json-schema-definition" class="section">MIDL JSON schema definition</h3>
+                <p>The MIDL reference to a MIDL JSON schema <code>OrganizationSummary</code>,
+                which should be defined under <code>com.thoughtworks.microbuilder.tutorial.githubSdk.model</code> package,
+                or <code>src/haxe/com/thoughtworks/microbuilder/tutorial/githubSdk/model</code> directory.
+                You can run <code>sbt jsonStreamModelModules::packageName</code> in shell to check that.</p>
+                <pre><code>// src/haxe/com/thoughtworks/microbuilder/tutorial/githubSdk/model/OrganizationSummary.hx
+package com.thoughtworks.microbuilder.tutorial.githubSdk.model;
+
+@:final
+class OrganizationSummary {
+
+  public function new() {}
+
+  public var login:String;
+
+  public var id:Int;
+
+  public var url:String;
+
+  public var avatar_url:String;
+
+  public var description:String;
+
+}</code></pre>
+                <p>Now you can execute the following command to compile and package the SDK to a NPM package.</p>
+                <pre><code>sbt haxelibInstallDependencies haxe-js:packageNpm</code></pre>
+                
+                <h2 id="publish-the-sdk-to-haxelib" class="section">Publish the SDK to Haxelib</h2>
+                <p>Before you publish the SDK to Haxelib,
+                you must register a user name for haxelib.
+                Run the following command for the registration</p>
+                <pre><code>haxelib register</code></pre>
+                <p>Then, add some necessary settings in <code>build.sbt</code>, including:</p>
+                <ul>
+                  <li><code>haxelibReleaseNote</code></li>
+                  <li><code>haxelibContributors</code></li>
+                  <li><code>haxelibDependencies</code></li>
+                  <li><code>licenses</code></li>
+                  <li><code>haxelibDependencies</code></li>
+                  <li><code>haxelibSubmitUsername</code></li>
+                </ul>
+                <p>See this <a href="https://github.com/ThoughtWorksInc/github-sdk/tree/v1.0.10">repository</a> for the complete code base.</p>
+                <p>Then, run the following command in your shell.</p>
+                <pre><code>sbt haxe:publish</code></pre>
+                
+                <h3 id="setup-a-command-line-program" class="section">Setup a command-line program</h3>
+                <p>Now, create your client-side application.</p>
+                <p>First, install <code>github-sdk</code> by executing the following command in shell:</p>
+                <pre><code>haxelib install github-sdk</code></pre>
+                <p>Then you will need to install <code>hxssl</code>, because the Github API is HTTPS protocol.</p>
+                <pre><code>haxelib git hxssl https://github.com/tong/hxssl.git</code></pre>
+                <p>Now, create a <code>build.hxml</code> and add the dependency to github-sdk.</p>
+                <pre><code># Library dependencies
+-lib github-sdk
+-lib hxssl:git
+
+# Execute the `Main` class
+-x Main</code></pre>
+                <p>This <code>build.hxml</code> contains flags for Haxe compiler.
+                When you run <code>haxe build.hxml</code>,
+                the Haxe compiler will run <code>Main.hx</code> as entry point of this program,
+                with library dependencies <code>github-sdk</code> and <code>hxssl</code>.</p>
+                
+                <h3 id="the-source-file-of-the-command-line-program" class="section">The source file of the command-line program</h3>
+                <p>Now you will create the source code for the command-lib program.
+                Create <code>Main.hx</code>, and edit it:</p>
+                <pre><code>import com.thoughtworks.microbuilder.tutorial.githubSdk.model.*;
+import com.thoughtworks.microbuilder.tutorial.githubSdk.proxy.*;
+import com.thoughtworks.microbuilder.core.*;
+
+class Main {
+
+    public static function main() {
+        // Initialize organization service in Github SDK
+        var organizationService = {
+            var urlPrefix = &quot;https://api.github.com/&quot;;
+            var routeConfiguration = MicrobuilderRouteConfigurationFactory.routeConfiguration_com_thoughtworks_microbuilder_tutorial_githubSdk_rpc_IOrganizationService();
+            var outgoingJsonService = new MicrobuilderOutgoingJsonService(urlPrefix, routeConfiguration);
+            MicrobuilderOutgoingProxyFactory.outgoingProxy_com_thoughtworks_microbuilder_tutorial_githubSdk_rpc_IOrganizationService(outgoingJsonService);
+        }
+
+        // Read GITHUB_USERNAME environment variables
+        var username = Sys.environment()[&quot;GITHUB_USERNAME&quot;];
+
+        // Send a request to Github API via organization service
+        organizationService.listUserOrganizations(username).start(
+            function(response):Void {
+                trace(&#39;$username belong to ${response.length} organizations: ${ [ for (organization in response) &quot;\n * &quot; + organization.login ].join(&quot;&quot;) }&#39;);
+            },
+            function(error):Void {
+                trace(&#39;Error: $error&#39;);
+            }
+        );
+    }
+
+}</code></pre>
+                <p><code>organizationService.listUserOrganizations</code> returns a <a href="https://oss.sonatype.org/service/local/repositories/snapshots/archive/com/thoughtworks/microbuilder/json-stream-core/3.0.3-SNAPSHOT/json-stream-core-3.0.3-SNAPSHOT-javadoc.jar/!/jsonStream/rpc/Future1.html">Future1</a>,
+                which pass the response data to the first function you passed to <code>start</code> method.</p>
+                <p>The example is complete now.</p>
+                <p>You can run it in shell and see its output:</p>
+                <pre><code>$ export GITHUB_USERNAME=Atry
+$ haxe build.hxml
+Main.hx:22: Atry belong to 3 organizations:
+ * ThoughtWorksInc
+ * ThoughtWorks-Xi-an-Scala-Camp
+ * thoughtworkschina</code></pre>
+                <p>You can find the entire example of command-line program at <a href="https://github.com/ThoughtWorksInc/organization-list-cli">organization-list-cli</a>.</p>
 
             </div>
         </div>
