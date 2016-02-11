@@ -1110,6 +1110,7 @@ import com.thoughtworks.microbuilder.tutorial.githubSdk.model.OrganizationSummar
 @:nativeGen
 interface IOrganizationService {
 
+  @:requestHeader(&quot;User-Agent&quot;, &quot;organization-list-cli&quot;)
   @:route(&quot;GET&quot;, &quot;users/{username}/orgs&quot;)
   function listUserOrganizations(username:String):Future&lt;Vector&lt;OrganizationSummary&gt;&gt;;
 
@@ -1158,7 +1159,7 @@ class OrganizationSummary {
                   <li><code>haxelibDependencies</code></li>
                   <li><code>haxelibSubmitUsername</code></li>
                 </ul>
-                <p>See this <a href="https://github.com/ThoughtWorksInc/github-sdk/tree/v1.0.10">repository</a> for the complete code base.</p>
+                <p>See this <a href="https://github.com/ThoughtWorksInc/github-sdk/">repository</a> for the complete code base.</p>
                 <p>Then, run the following command in your shell.</p>
                 <pre><code>sbt haxe:publish</code></pre>
                 
