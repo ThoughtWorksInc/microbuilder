@@ -74,6 +74,7 @@ endpoint in a MIDL interface.
     @:nativeGen
     interface IOrganizationService {
 
+      @:requestHeader("User-Agent", "organization-list-cli")
       @:route("GET", "users/{username}/orgs")
       function listUserOrganizations(username:String):Future<Vector<OrganizationSummary>>;
 
@@ -129,7 +130,7 @@ Then, add some necessary settings in `build.sbt`, including:
 * `haxelibDependencies`
 * `haxelibSubmitUsername`
 
-See this [repository](https://github.com/ThoughtWorksInc/github-sdk/tree/v1.0.10) for the complete code base.
+See this [repository](https://github.com/ThoughtWorksInc/github-sdk/) for the complete code base.
 
 Then, run the following command in your shell.
 
