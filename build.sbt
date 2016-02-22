@@ -19,6 +19,8 @@ lazy val `microbuilder-sample` = project dependsOn `microbuilder-play` dependsOn
 
 lazy val `microbuilder-js` = project dependsOn `microbuilder-core`
 
+resolvers += "Sonatype Public" at "https://oss.sonatype.org/content/groups/public"
+
 ghpages.settings
 
 LaikaPlugin.defaults
