@@ -1,4 +1,4 @@
-# Microbuilder <a href="http://thoughtworks.com/"><img align="right" src="https://www.thoughtworks.com/imgs/tw-logo.png" title="ThoughtWorks" height="15em"/></a>
+# Microbuilder <a href="http://thoughtworks.com/"><img align="right" src="https://www.thoughtworks.com/imgs/tw-logo.png" title="ThoughtWorks" height="15"/></a>
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ThoughtWorksInc/microbuilder?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Build Status](https://travis-ci.org/ThoughtWorksInc/microbuilder.svg)](https://travis-ci.org/ThoughtWorksInc/microbuilder)
